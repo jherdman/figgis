@@ -1,0 +1,140 @@
+defaults: &defaults
+  docker:
+    - image: elixir:1.9.1
+
+    - image: postgres:11-alpine
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: ""
+
+  environment:
+    MIX_HOME: "/root/figgis/global"
+    MIX_ENV: test
+
+  working_directory: ~/figgis
+
+version: 2
+jobs:
+  checkout_code:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - persist_to_workspace:
+          root: .
+          paths:
+          - .
+
+  install_dependencies:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ .Branch }}--{{ checksum "mix.lock" }}
+            - v1-dependencies-{{ .Branch }}
+            - v1-dependencies
+
+      - run:
+          name: Install Hex Locally
+          command: mix local.hex --force
+
+      - run:
+          name: Install Rebar
+          command: mix local.rebar --force
+
+      - run:
+          name: Install Project Dependencies
+          command: mix deps.get
+
+      - run:
+          name: Compile Project Dependencies
+          command: mix deps.compile
+
+      - save_cache:
+          key: v1-dependencies-{{ .Branch }}--{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - _build
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  set_up_environment:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Set Up Database
+          command: mix ecto.create
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  lint_project:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - restore_cache:
+          keys:
+            - v1-plt--{{ checksum "mix.lock" }}
+      - run:
+          name: Lint Project
+          command: mix lint
+
+      - run:
+          name: Type Check
+          command: MIX_ENV=dev mix dialyzer --halt-exit-status
+
+      - save_cache:
+          key: v1-plt--{{checksum "mix.lock" }}
+          paths:
+            - priv/plts
+
+  run_tests:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Run General Tests
+          command: mix test
+
+workflows:
+  version: 2
+
+  test_and_deploy:
+    jobs:
+      - checkout_code
+
+      - install_dependencies:
+          requires:
+            - checkout_code
+
+      - set_up_environment:
+          requires:
+            - install_dependencies
+
+      - lint_project:
+          requires:
+            - set_up_environment
+
+      - run_tests:
+          requires:
+            - set_up_environment
