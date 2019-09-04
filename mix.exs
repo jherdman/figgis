@@ -63,7 +63,12 @@ defmodule Figgis.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      lint: ["credo", "sobelow --config", "format --check-formatted", "compile --warnings-as-errors"]
+      lint: [
+        "credo",
+        "sobelow --config",
+        "format --check-formatted",
+        "compile --warnings-as-errors"
+      ]
     ]
   end
 end
