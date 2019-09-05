@@ -6,7 +6,7 @@ defmodule FiggisWeb.Router do
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'"}
   end
 
   pipeline :api do
