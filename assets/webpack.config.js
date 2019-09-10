@@ -1,8 +1,9 @@
 const path = require('path');
 const glob = require('glob');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -30,14 +31,15 @@ module.exports = (env, options) => ({
       {
         test: /\.css$/i,
         use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          MiniCssExtractPlugin.loader,
+          'css-loader',
           'postcss-loader',
         ],
       },
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+    new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+    new MiniCssExtractPlugin({ filename: '../css/app.css' }),
   ],
 });

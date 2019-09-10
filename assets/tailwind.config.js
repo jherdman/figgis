@@ -1,7 +1,13 @@
 module.exports = {
   theme: {
-    extend: {}
+    container: {
+    },
+    extend: {
+    }
   },
-  variants: {},
-  plugins: []
+  // https://tailwindcss.com/docs/configuring-variants/#default-variants-reference
+  variants: {
+  },
+  plugins: [
+  ],
 }
