@@ -18,7 +18,8 @@ defmodule Figgis.MixProject do
   def dialyzer do
     [
       plt_add_deps: :transitive,
-      plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+      ignore_warnings: ".dialyzer_ignore.exs"
     ]
   end
 
