@@ -15,6 +15,7 @@
 ## Linting
 
 `$ mix lint`
+`$ mix dialyzer`
 
 ## Building
 
