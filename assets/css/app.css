@@ -1,3 +1,9 @@
-/* This file is for your main application css. */
+/* Set up Tailwind */
 
-@import "./phoenix.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Components */
+
+@import "components";
