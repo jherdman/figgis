@@ -11,6 +11,10 @@ erl_crash.dump
 /config/*.secret.exs
 .elixir_ls/
 
+# Sobelow
+
+/.sobelow
+
 # Dialyzer
 
 /priv/plts/*.plt
