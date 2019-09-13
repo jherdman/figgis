@@ -73,7 +73,11 @@ secret_key_base =
     """
 
 config :figgis, FiggisWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
+  load_from_system_env: true,
+  url: [
+    host: "figgis.herokuapp.com",
+    scheme: "http"
+  ],
   secret_key_base: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
