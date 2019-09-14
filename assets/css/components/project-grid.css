@@ -1,0 +1,7 @@
+/**
+ * @define .ProjectGrid
+ */
+
+.ProjectGrid {
+  display: grid;
+}

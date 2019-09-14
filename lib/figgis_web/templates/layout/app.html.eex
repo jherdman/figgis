@@ -7,14 +7,14 @@
     <title>Figgis · Stats Tracking</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body>
+  <body class="text-gray-900 leading-normal">
     <header>
       <section class="container">
         <nav role="navigation">
         </nav>
       </section>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="w-full p-6">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>

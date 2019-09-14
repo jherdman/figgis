@@ -15,7 +15,7 @@ defmodule FiggisWeb.ProjectControllerTest do
   describe "index" do
     test "lists all projects", %{conn: conn} do
       conn = get(conn, Routes.project_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Projects"
+      assert html_response(conn, 200) =~ "Projects"
     end
   end
 

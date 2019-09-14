@@ -1,0 +1,14 @@
+<section class="w-full md:w-1/2">
+  <a
+    href="<%= Routes.project_path(@conn, :new) %>"
+    class="block border-2 m-2 h-40 rounded bg-white hover:bg-purple-100 focus:border-purple-300 active:border-purple-300 active:bg-purple-200 outline-none"
+  >
+    <div
+      class="p-2"
+    >
+      <h1 class="font-light text-xl">
+        <%= @project.name %>
+      </h1>
+    </div>
+  </a>
+</section>
