@@ -6,5 +6,5 @@
 }
 
 .Heading--1 {
-  @apply font-light text-4xl mb-8;
+  @apply font-light text-4xl mb-8 border-b-2 border-gray-300;
 }

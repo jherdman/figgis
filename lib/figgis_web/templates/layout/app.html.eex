@@ -15,8 +15,12 @@
       </section>
     </header>
     <main role="main" class="w-full p-6">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= for flash_type <- [:info, :error] do %>
+        <%= if get_flash(@conn, flash_type) do %>
+          <p class="Alert Alert--<%= flash_type %>" role="alert"><%= get_flash(@conn, flash_type) %></p>
+        <% end %>
+      <% end %>
+
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

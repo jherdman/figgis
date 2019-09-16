@@ -3,9 +3,13 @@
  */
 
 .Button {
-  @apply flex-shrink-0 bg-teal-500 border-teal-500 text-sm border-4 text-white py-1 px-2 rounded;
+  @apply inline-block flex-shrink-0 border-4 border-purple-500 bg-purple-500 text-sm text-white py-2 px-4 rounded;
+
+  &:focus {
+    @apply border-purple-900;
+  }
 
   &:hover {
-    @apply bg-teal-700 border-teal-700;
+    @apply bg-purple-600 border-purple-600;
   }
 }

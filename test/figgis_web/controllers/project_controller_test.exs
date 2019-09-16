@@ -1,16 +1,11 @@
 defmodule FiggisWeb.ProjectControllerTest do
   use FiggisWeb.ConnCase
 
-  alias Figgis.Projects
+  alias Figgis.Factory
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
   @invalid_attrs %{name: nil}
-
-  def fixture(:project) do
-    {:ok, project} = Projects.create_project(@create_attrs)
-    project
-  end
 
   describe "index" do
     test "lists all projects", %{conn: conn} do
@@ -34,7 +29,7 @@ defmodule FiggisWeb.ProjectControllerTest do
       assert redirected_to(conn) == Routes.project_path(conn, :show, id)
 
       conn = get(conn, Routes.project_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Project"
+      assert html_response(conn, 200) =~ @create_attrs.name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -48,7 +43,7 @@ defmodule FiggisWeb.ProjectControllerTest do
 
     test "renders form for editing chosen project", %{conn: conn, project: project} do
       conn = get(conn, Routes.project_path(conn, :edit, project))
-      assert html_response(conn, 200) =~ "Edit Project"
+      assert html_response(conn, 200) =~ "Edit #{project.name}"
     end
   end
 
@@ -65,7 +60,7 @@ defmodule FiggisWeb.ProjectControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, project: project} do
       conn = put(conn, Routes.project_path(conn, :update, project), project: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Project"
+      assert html_response(conn, 200) =~ "Edit #{project.name}"
     end
   end
 
@@ -83,7 +78,7 @@ defmodule FiggisWeb.ProjectControllerTest do
   end
 
   defp create_project(_) do
-    project = fixture(:project)
+    project = Factory.insert(:project)
     {:ok, project: project}
   end
 end
