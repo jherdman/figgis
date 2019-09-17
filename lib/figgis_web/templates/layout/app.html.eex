@@ -7,16 +7,20 @@
     <title>Figgis · Stats Tracking</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body>
+  <body class="text-gray-900 leading-normal">
     <header>
       <section class="container">
         <nav role="navigation">
         </nav>
       </section>
     </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <main role="main" class="w-full p-6">
+      <%= for flash_type <- [:info, :error] do %>
+        <%= if get_flash(@conn, flash_type) do %>
+          <p class="Alert Alert--<%= flash_type %>" role="alert"><%= get_flash(@conn, flash_type) %></p>
+        <% end %>
+      <% end %>
+
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

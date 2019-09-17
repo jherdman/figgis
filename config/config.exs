@@ -8,7 +8,13 @@
 use Mix.Config
 
 config :figgis,
-  ecto_repos: [Figgis.Repo]
+  ecto_repos: [Figgis.Repo],
+  generators: [binary_id: true],
+  migration_primary_key: [
+    name: :id,
+    id: :uuid,
+    type: :binary_id
+  ]
 
 # Configures the endpoint
 config :figgis, FiggisWeb.Endpoint,

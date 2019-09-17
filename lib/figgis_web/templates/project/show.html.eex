@@ -1,0 +1,7 @@
+<h1 class="Heading Heading--1"><%= @project.name %></h1>
+
+<div>
+  <%= link "Edit", to: Routes.project_path(@conn, :edit, @project), class: "Button mr-2" %>
+
+  <%= link "Delete", to: Routes.project_path(@conn, :delete, @project), class: "Button", method: :delete %>
+</div>

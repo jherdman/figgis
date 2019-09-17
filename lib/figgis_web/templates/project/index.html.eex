@@ -1,0 +1,11 @@
+<h1 class="Heading Heading--1">Projects</h1>
+
+<%= link "New project", class: "Button mb-8", to: Routes.project_path(@conn, :new) %>
+
+<%= if Enum.any?(@projects) do %>
+  <div class="p-2 border border-gray-300 bg-gray-200 rounded">
+    <div class="flex flex-wrap">
+      <%= render_many @projects, FiggisWeb.ProjectView, "_card.html", conn: @conn %>
+    </div>
+  </div>
+<% end %>
