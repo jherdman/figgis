@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: elixir:1.9.1
+    - image: circleci/elixir:1.9.1
 
     - image: postgres:11-alpine
       environment:
@@ -8,10 +8,10 @@ defaults: &defaults
         POSTGRES_PASSWORD: ""
 
   environment:
-    MIX_HOME: "/root/figgis/global"
     MIX_ENV: test
+    MIX_HOME: /home/circleci/app/global
 
-  working_directory: ~/figgis
+  working_directory: ~/app
 
 version: 2
 jobs:
@@ -33,12 +33,6 @@ jobs:
       - attach_workspace:
           at: .
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ .Branch }}--{{ checksum "mix.lock" }}
-            - v1-dependencies-{{ .Branch }}
-            - v1-dependencies
-
       - run:
           name: Install Hex Locally
           command: mix local.hex --force
@@ -47,19 +41,44 @@ jobs:
           name: Install Rebar
           command: mix local.rebar --force
 
-      - run:
-          name: Install Project Dependencies
-          command: mix deps.get
+      - restore_cache:
+          keys:
+            - v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+
+      - restore_cache:
+          keys:
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache
 
       - run:
-          name: Compile Project Dependencies
-          command: mix deps.compile
+          name: Install and Compile Project Dependencies
+          command: mix do deps.get, deps.compile
 
       - save_cache:
-          key: v1-dependencies-{{ .Branch }}--{{ checksum "mix.lock" }}
+          key: v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
           paths:
-            - deps
-            - _build
+            - "deps"
+
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}
+          paths:
+            - "deps"
+
+      - save_cache:
+          key: v1-mix-cache
+          paths:
+            - "deps"
+            - "~/.mix"
+
+      - save_cache:
+          key: v1-build-cache-{{ .Branch }}
+          paths: "_build"
+
+      - save_cache:
+          key: v1-build-cache
+          paths: "_build"
 
       - persist_to_workspace:
           root: .
@@ -120,6 +139,9 @@ jobs:
       - run:
           name: Run General Tests
           command: mix test
+
+      - store_test_results:
+          path: "_build/test/lib/figgis"
 
 workflows:
   version: 2
