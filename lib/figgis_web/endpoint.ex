@@ -42,6 +42,12 @@ defmodule FiggisWeb.Endpoint do
     key: "_figgis_key",
     signing_salt: "a3fgIYt/"
 
+  if Application.get_env(:figgis, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox,
+      at: "/phoenix/sandbox",
+      repo: Figgis.Repo
+  end
+
   plug FiggisWeb.Router
 
   @doc """

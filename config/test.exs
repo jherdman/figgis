@@ -12,7 +12,11 @@ config :figgis, Figgis.Repo,
 # you can enable the server option below.
 config :figgis, FiggisWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true,
+  debug_errors: true,
+  check_origin: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :info
+
+config :figgis, sql_sandbox: true

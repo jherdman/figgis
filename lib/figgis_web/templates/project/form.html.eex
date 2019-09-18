@@ -4,14 +4,21 @@
   </div>
 <% end %>
 
-<%= form_for @changeset, @action, [class: form_classes(@changeset)], fn f -> %>
+<%= form_for @changeset,
+  @action,
+  [
+    class: form_classes(@changeset),
+    data: [
+      "test-selector": "new-project-form"
+    ]
+  ], fn f -> %>
   <div class="Form-group">
     <%= label f, :name, class: "Form-label" %>
-    <%= text_input f, :name, class: "Form-textBox", required: "required" %>
+    <%= text_input f, :name, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="Form-group">
-    <%= submit "Save", class: "Button" %>
+    <%= submit "Save", class: "Button", data: ["test-selector": "save-button"] %>
   </div>
 <% end %>
