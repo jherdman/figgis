@@ -163,14 +163,6 @@ jobs:
           command: cd assets && yarn build
 
       - run:
-          name: Prepare test server
-          command: elixir --erl "-detached" -S mix phx.server
-
-      - run:
-          name: Wait for Elixir
-          command: dockerize -wait tcp://localhost:4002 -timeout 1m
-
-      - run:
           name: Run Jest Tests
           command: cd assets && yarn test:ci
 

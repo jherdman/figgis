@@ -11,6 +11,7 @@
 ## Running Tests
 
 `$ mix test`
+`$ cd assets ; yarn test`
 
 ## Linting
 
