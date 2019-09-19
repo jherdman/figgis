@@ -1,7 +1,20 @@
 <h1 class="Heading Heading--1"><%= @project.name %></h1>
 
 <div>
-  <%= link "Edit", to: Routes.project_path(@conn, :edit, @project), class: "Button mr-2" %>
+  <%= link "Edit",
+    to: Routes.project_path(@conn, :edit, @project),
+    class: "Button mr-2",
+    data: [
+      "test-selector": "edit-project",
+    ]
+  %>
 
-  <%= link "Delete", to: Routes.project_path(@conn, :delete, @project), class: "Button", method: :delete %>
+  <%= link "Delete",
+    to: Routes.project_path(@conn, :delete, @project),
+    class: "Button",
+    method: :delete,
+    data: [
+      "test-selector": "delete-project"
+    ]
+  %>
 </div>

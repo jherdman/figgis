@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: circleci/elixir:1.9.1
+    - image: circleci/elixir:1.9.1-node-browsers
 
     - image: postgres:11-alpine
       environment:
@@ -80,21 +80,21 @@ jobs:
           key: v1-build-cache
           paths: "_build"
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  set_up_environment:
-    <<: *defaults
-
-    steps:
-      - attach_workspace:
-          at: .
+      - restore_cache:
+          keys:
+            - v1-node-dependencies-{{ .Branch }}-{{ checksum "assets/yarn.lock" }}
+            - v1-node-dependencies-{{ .Branch }}-
+            - v1-node-dependencies-
 
       - run:
-          name: Set Up Database
-          command: mix ecto.create
+          name: Install Node Dependencies
+          command: cd assets && yarn install
+
+      - save_cache:
+          key: v1-node-dependencies-{{ .Branch }}-{{ checksum "assets/yarn.lock" }}
+          paths:
+            - "assets/node_modules"
+            - "~/.cache/yarn"
 
       - persist_to_workspace:
           root: .
@@ -125,7 +125,7 @@ jobs:
           command: MIX_ENV=dev mix dialyzer --halt-exit-status
 
       - save_cache:
-          key: v2-plt--{{checksum "mix.lock" }}
+          key: v2-plt--{{checksum "dialyzer-checksummable" }}
           paths:
             - priv/plts
 
@@ -143,6 +143,43 @@ jobs:
       - store_test_results:
           path: "_build/test/lib/figgis"
 
+  run_browser_tests:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Set up DB
+          command: mix ecto.setup
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Build static assets
+          command: cd assets && yarn build
+
+      - run:
+          name: Prepare test server
+          command: elixir --erl "-detached" -S mix phx.server
+
+      - run:
+          name: Wait for Elixir
+          command: dockerize -wait tcp://localhost:4002 -timeout 1m
+
+      - run:
+          name: Run Jest Tests
+          command: cd assets && yarn test:ci
+
+      - store_test_results:
+          path: "assets/__tests__/junit.xml"
+
+      - store_artifacts:
+          path: "assets/__tests__/artifacts"
+
 workflows:
   version: 2
 
@@ -154,14 +191,14 @@ workflows:
           requires:
             - checkout_code
 
-      - set_up_environment:
+      - lint_project:
           requires:
             - install_dependencies
 
-      - lint_project:
-          requires:
-            - set_up_environment
-
       - run_tests:
           requires:
-            - set_up_environment
+            - install_dependencies
+
+      - run_browser_tests:
+          requires:
+            - install_dependencies
