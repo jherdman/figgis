@@ -1,5 +1,4 @@
-const fetch = require('node-fetch');
-
+import fetch from 'node-fetch';
 import expect from 'expect-puppeteer';
 
 const ROOT_URL = 'http://localhost:4002';
