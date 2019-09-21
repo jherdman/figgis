@@ -39,11 +39,11 @@ defmodule Figgis.Metrics.Metric do
     |> validate_required([
       :name,
       :description,
-      :project_id,
       :x_axis_label,
       :x_axis_type,
       :y_axis_label,
       :y_axis_type
     ])
+    |> foreign_key_constraint(:project_id)
   end
 end

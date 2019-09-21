@@ -49,9 +49,8 @@ defmodule Figgis.MetricsTest do
 
     test "create_metric/1 with valid data creates a metric" do
       project = Factory.insert(:project)
-      attrs = Map.merge(@valid_attrs, %{project_id: project.id})
 
-      assert {:ok, %Metric{} = metric} = Metrics.create_metric(attrs)
+      assert {:ok, %Metric{} = metric} = Metrics.create_metric(project, @valid_attrs)
 
       assert metric.project_id == project.id
       assert metric.description == "some description"
@@ -63,12 +62,16 @@ defmodule Figgis.MetricsTest do
     end
 
     test "create_metric/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Metrics.create_metric(@invalid_attrs)
+      project = Factory.insert(:project)
+
+      assert {:error, %Ecto.Changeset{}} = Metrics.create_metric(project, @invalid_attrs)
     end
 
     test "update_metric/2 with valid data updates the metric" do
       metric = Factory.insert(:metric)
-      assert {:ok, %Metric{} = metric} = Metrics.update_metric(metric, @update_attrs)
+      project = metric.project
+
+      assert {:ok, %Metric{} = metric} = Metrics.update_metric(project, metric, @update_attrs)
       assert metric.description == "some updated description"
       assert metric.name == "some updated name"
       assert metric.x_axis_label == "some updated x_axis_label"
@@ -79,8 +82,9 @@ defmodule Figgis.MetricsTest do
 
     test "update_metric/2 with invalid data returns error changeset" do
       metric = Factory.insert(:metric)
+      project = metric.project
 
-      assert {:error, %Ecto.Changeset{}} = Metrics.update_metric(metric, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Metrics.update_metric(project, metric, @invalid_attrs)
 
       found_metric = Metrics.get_metric!(metric.id)
 

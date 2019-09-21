@@ -17,4 +17,12 @@
       "test-selector": "delete-project"
     ]
   %>
+
+  <%= link "New metric",
+    to: Routes.project_metric_path(@conn, :new, @project),
+    class: "Button mr-2",
+    data: [
+      "test-selector": "new-metric-button",
+    ]
+  %>
 </div>

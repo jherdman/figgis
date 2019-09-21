@@ -42,6 +42,8 @@ defmodule FiggisWeb do
       import FiggisWeb.ErrorHelpers
       import FiggisWeb.Gettext
       alias FiggisWeb.Router.Helpers, as: Routes
+
+      import FiggisWeb.FormView
     end
   end
 

@@ -1,0 +1,54 @@
+<%= if @changeset.action do %>
+  <div class="Alert Alert--error">
+    <p>Oops, something went wrong! Please check the errors below.</p>
+  </div>
+<% end %>
+
+<%= form_for @changeset,
+  @action,
+  [
+    class: form_classes(@changeset),
+    data: [
+      "test-selector": "new-metric-form"
+    ]
+  ], fn f -> %>
+  <div class="Form-group">
+    <%= label f, :name, class: "Form-label" %>
+    <%= text_input f, :name, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="Form-group">
+    <%= label f, :description, class: "Form-label" %>
+    <%= text_input f, :description, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="Form-group">
+    <%= label f, :x_axis_label, class: "Form-label" %>
+    <%= text_input f, :x_axis_label, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :x_axis_label %>
+  </div>
+
+  <div class="Form-group">
+    <%= label f, :x_axis_type, class: "Form-label" %>
+    <%= text_input f, :x_axis_type, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :x_axis_type %>
+  </div>
+
+  <div class="Form-group">
+    <%= label f, :y_axis_label, class: "Form-label" %>
+    <%= text_input f, :y_axis_label, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :y_axis_label %>
+  </div>
+
+  <div class="Form-group">
+    <%= label f, :y_axis_type, class: "Form-label" %>
+    <%= text_input f, :y_axis_type, class: "Form-textBox", required: "required", data: ["test-selector": "project-name"] %>
+    <%= error_tag f, :y_axis_type %>
+  </div>
+
+  <div class="Form-group">
+    <%= submit "Save", class: "Button", data: ["test-selector": "save-button"] %>
+  </div>
+<% end %>

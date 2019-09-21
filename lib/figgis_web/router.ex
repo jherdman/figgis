@@ -20,7 +20,9 @@ defmodule FiggisWeb.Router do
   scope "/", FiggisWeb do
     pipe_through :browser
 
-    resources "/", ProjectController, as: :project
+    resources "/", ProjectController, as: :project do
+      resources "/metrics", MetricController, except: [:index]
+    end
   end
 
   # Other scopes may use custom stacks.

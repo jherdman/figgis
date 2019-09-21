@@ -7,6 +7,7 @@ defmodule Figgis.Metrics do
   alias Figgis.Repo
 
   alias Figgis.Metrics.Metric
+  alias Figgis.Projects.Project
 
   @doc """
   Returns the list of metrics.
@@ -42,16 +43,17 @@ defmodule Figgis.Metrics do
 
   ## Examples
 
-      iex> create_metric(%{field: value})
+      iex> create_metric(project, %{field: value})
       {:ok, %Metric{}}
 
-      iex> create_metric(%{field: bad_value})
+      iex> create_metric(project, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_metric(attrs \\ %{}) do
+  def create_metric(%Project{} = project, attrs \\ %{}) do
     %Metric{}
     |> Metric.changeset(attrs)
+    |> Ecto.Changeset.put_change(:project_id, project.id)
     |> Repo.insert()
   end
 
@@ -60,16 +62,17 @@ defmodule Figgis.Metrics do
 
   ## Examples
 
-      iex> update_metric(metric, %{field: new_value})
+      iex> update_metric(project, metric, %{field: new_value})
       {:ok, %Metric{}}
 
-      iex> update_metric(metric, %{field: bad_value})
+      iex> update_metric(project, metric, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_metric(%Metric{} = metric, attrs) do
+  def update_metric(%Project{} = project, %Metric{} = metric, attrs) do
     metric
     |> Metric.changeset(attrs)
+    |> Ecto.Changeset.put_change(:project_id, project.id)
     |> Repo.update()
   end
 
