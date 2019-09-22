@@ -17,7 +17,7 @@ defmodule Figgis.Factory do
       x_axis_label: "Date",
       x_axis_type: "date",
       y_axis_label: "Kilobytes",
-      y_axis_type: "integer",
+      y_axis_type: "number",
       project: build(:project)
     }
   end

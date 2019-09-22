@@ -10,17 +10,17 @@ defmodule Figgis.MetricsTest do
       description: "some description",
       name: "some name",
       x_axis_label: "some x_axis_label",
-      x_axis_type: "some x_axis_type",
+      x_axis_type: "date",
       y_axis_label: "some y_axis_label",
-      y_axis_type: "some y_axis_type"
+      y_axis_type: "number"
     }
     @update_attrs %{
       description: "some updated description",
       name: "some updated name",
       x_axis_label: "some updated x_axis_label",
-      x_axis_type: "some updated x_axis_type",
+      x_axis_type: "number",
       y_axis_label: "some updated y_axis_label",
-      y_axis_type: "some updated y_axis_type"
+      y_axis_type: "date"
     }
     @invalid_attrs %{
       description: nil,
@@ -56,9 +56,9 @@ defmodule Figgis.MetricsTest do
       assert metric.description == "some description"
       assert metric.name == "some name"
       assert metric.x_axis_label == "some x_axis_label"
-      assert metric.x_axis_type == "some x_axis_type"
+      assert metric.x_axis_type == :date
       assert metric.y_axis_label == "some y_axis_label"
-      assert metric.y_axis_type == "some y_axis_type"
+      assert metric.y_axis_type == :number
     end
 
     test "create_metric/1 with invalid data returns error changeset" do
@@ -75,9 +75,9 @@ defmodule Figgis.MetricsTest do
       assert metric.description == "some updated description"
       assert metric.name == "some updated name"
       assert metric.x_axis_label == "some updated x_axis_label"
-      assert metric.x_axis_type == "some updated x_axis_type"
+      assert metric.x_axis_type == :number
       assert metric.y_axis_label == "some updated y_axis_label"
-      assert metric.y_axis_type == "some updated y_axis_type"
+      assert metric.y_axis_type == :date
     end
 
     test "update_metric/2 with invalid data returns error changeset" do

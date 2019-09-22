@@ -13,9 +13,9 @@ defmodule Figgis.Metrics.Metric do
     field :description, :string
     field :name, :string
     field :x_axis_label, :string
-    field :x_axis_type, :string
+    field :x_axis_type, AxisTypes
     field :y_axis_label, :string
-    field :y_axis_type, :string
+    field :y_axis_type, AxisTypes
 
     belongs_to :project, Project
 
