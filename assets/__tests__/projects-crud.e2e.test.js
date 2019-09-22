@@ -24,46 +24,56 @@ describe('Project Management', function() {
   });
 
   test('CRUD operations', async function() {
-    await page.goto(ROOT_URL);
+    try {
+      await page.goto(ROOT_URL);
 
-    await expect(page).toClick('[data-test-selector="new-project-button"]');
+      await expect(page).toClick('[data-test-selector="new-project-button"]');
 
-    await page.waitForNavigation();
+      await page.waitForNavigation();
 
-    await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-      'project[name]': 'My New Project',
-    });
+      await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
+        'project[name]': 'My New Project',
+      });
 
-    await expect(page).toClick('[data-test-selector="save-button"]');
+      await expect(page).toClick('[data-test-selector="save-button"]');
 
-    await page.waitForNavigation();
+      await page.waitForNavigation();
 
-    await expect(page).toMatch('My New Project');
+      await expect(page).toMatch('My New Project');
 
-    await expect(page).toMatch('Project created successfully');
+      await expect(page).toMatch('Project created successfully');
 
-    await expect(page).toClick('[data-test-selector="edit-project"]');
+      await expect(page).toClick('[data-test-selector="edit-project"]');
 
-    await page.waitForNavigation();
+      await page.waitForNavigation();
 
-    await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-      'project[name]': 'My Updated Project',
-    });
+      await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
+        'project[name]': 'My Updated Project',
+      });
 
-    await expect(page).toClick('[data-test-selector="save-button"]');
+      await expect(page).toClick('[data-test-selector="save-button"]');
 
-    await page.waitForNavigation();
+      await page.waitForNavigation();
 
-    await expect(page).toMatch('Project updated successfully');
+      await expect(page).toMatch('Project updated successfully');
 
-    await expect(page).toMatch('My Updated Project');
+      await expect(page).toMatch('My Updated Project');
 
-    await expect(page).toClick('[data-test-selector="delete-project"]');
+      await expect(page).toClick('[data-test-selector="delete-project"]');
 
-    await page.waitForNavigation();
+      await page.waitForNavigation();
 
-    await page.screenshot({ path: '__tests__/artifacts/project-final.png' });
+      await page.screenshot({ path: '__tests__/artifacts/project-final.png' });
 
-    await expect(page).toMatch('Project deleted successfully');
+      await expect(page).toMatch('Project deleted successfully');
+    } catch (err) {
+      const screenshotPath = '__tests__/artifacts/project-failure.png';
+
+      await page.screenshot({ path: screenshotPath });
+
+      console.error('Screenshot:', screenshotPath);
+
+      throw err;
+    }
   });
 });
