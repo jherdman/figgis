@@ -41,8 +41,11 @@ describe('Project Management', function() {
 
       await expect(page).toClick('[data-test-selector="new-metric-button"]');
 
-      await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
+      await page.waitForNavigation();
+
+      await expect(page).toFillForm('[data-test-selector="new-metric-form"]', {
         'metric[name]': 'CSS Bundle Size',
+        'metric[description]': 'Tracks bundle size over time',
         'metric[x_axis_label]': 'Date',
         'metric[x_axis_type]': 'date',
         'metric[y_axis_label]': 'Kilobytes',
