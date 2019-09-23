@@ -1,1 +1,25 @@
 <h1 class="Heading Heading--1"><%= @metric.name %></h1>
+
+<div>
+  <%= link "Edit",
+    to: Routes.project_metric_path(@conn, :edit, @project, @metric),
+    class: "Button mr-2",
+    data: [
+      "test-selector": "edit-metric-button",
+    ]
+  %>
+
+  <%= link "Delete",
+    to: Routes.project_metric_path(@conn, :delete, @project, @metric),
+    class: "Button",
+    method: :delete,
+    data: [
+      "test-selector": "delete-metric-button"
+    ]
+  %>
+
+<%= if @metric.description do %>
+  <div>
+    <%= text_to_html(@metric.description) %>
+  </div>
+<% end %>

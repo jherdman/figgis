@@ -43,7 +43,7 @@ describe('Project Management', function() {
 
       await page.waitForNavigation();
 
-      await expect(page).toFillForm('[data-test-selector="new-metric-form"]', {
+      await expect(page).toFillForm('[data-test-selector="metric-form"]', {
         'metric[name]': 'CSS Bundle Size',
         'metric[description]': 'Tracks bundle size over time',
         'metric[x_axis_label]': 'Date',
@@ -57,6 +57,28 @@ describe('Project Management', function() {
       await page.waitForNavigation();
 
       await expect(page).toMatch('Metric created successfully');
+
+      await expect(page).toClick('[data-test-selector="edit-metric-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toFillForm('[data-test-selector="metric-form"]', {
+        'metric[name]': 'JavaScript Bundle Size',
+      });
+
+      await expect(page).toClick('[data-test-selector="save-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toMatch('Metric updated successfully');
+
+      await expect(page).toMatch('JavaScript Bundle Size');
+
+      await expect(page).toClick('[data-test-selector="delete-metric-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toMatch('Metric deleted successfully');
 
       await page.screenshot({ path: '__tests__/artifacts/metrics-current.png' });
     } catch (err) {

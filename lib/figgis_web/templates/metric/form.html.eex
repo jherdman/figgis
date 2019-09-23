@@ -9,7 +9,7 @@
   [
     class: form_classes(@changeset),
     data: [
-      "test-selector": "new-metric-form"
+      "test-selector": "metric-form"
     ]
   ], fn f -> %>
   <div class="Form-group">
