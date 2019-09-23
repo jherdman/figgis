@@ -46,9 +46,6 @@ jobs:
             - v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
             - v1-mix-cache-{{ .Branch }}
             - v1-mix-cache
-
-      - restore_cache:
-          keys:
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
 
