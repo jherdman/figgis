@@ -43,9 +43,9 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
-            - v1-mix-cache-{{ .Branch }}
-            - v1-mix-cache
+            - v2-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache
             - v1-build-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
@@ -55,12 +55,12 @@ jobs:
           command: mix do deps.get, deps.compile
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+          key: v2-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
           paths:
             - "deps"
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}
+          key: v2-mix-cache-{{ .Branch }}
           paths:
             - "deps"
 
@@ -68,18 +68,17 @@ jobs:
           key: v2-mix-cache
           paths:
             - "deps"
-            - "/home/circleci/app/global"
 
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+          key: v2-build-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
           paths: "_build"
 
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}
+          key: v2-build-cache-{{ .Branch }}
           paths: "_build"
 
       - save_cache:
-          key: v1-build-cache
+          key: v2-build-cache
           paths: "_build"
 
       - restore_cache:
