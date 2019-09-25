@@ -3,8 +3,13 @@
  */
 
 .Heading {
+  @apply font-light;
 }
 
 .Heading--1 {
-  @apply font-light text-4xl mb-8 border-b-2 border-gray-300;
+  @apply text-4xl mb-8 border-b-2 border-gray-300;
+}
+
+.Heading--2 {
+  @apply text-2xl mb-4;
 }

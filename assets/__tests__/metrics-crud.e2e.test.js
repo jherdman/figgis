@@ -73,6 +73,18 @@ describe('Project Management', function() {
 
       await expect(page).toMatch('JavaScript Bundle Size');
 
+      await expect(page).toClick('[data-test-selector="back-button"]');
+
+      await page.waitForNavigation();
+
+      let metricHandles = await page.$$('[data-test-selector="metric-item"]');
+
+      await expect(metricHandles).toHaveLength(1);
+
+      await expect(page).toClick('[data-test-selector="metric-item"]:nth-of-type(1)');
+
+      await page.waitForNavigation();
+
       await expect(page).toClick('[data-test-selector="delete-metric-button"]');
 
       await page.waitForNavigation();
