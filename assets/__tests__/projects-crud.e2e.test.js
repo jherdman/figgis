@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import expect from 'expect-puppeteer';
 
 const ROOT_URL = 'http://localhost:4002';
 const SANDBOX_URL = `${ROOT_URL}/phoenix/sandbox`;
