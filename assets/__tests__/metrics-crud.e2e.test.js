@@ -73,7 +73,7 @@ describe('Project Management', function() {
 
       await expect(page).toMatch('JavaScript Bundle Size');
 
-      await expect(page).toClick('[data-test-selector="back-button"]');
+      await expect(page).toClick('[data-test-selector="project-link"]');
 
       await page.waitForNavigation();
 

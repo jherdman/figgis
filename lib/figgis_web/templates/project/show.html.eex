@@ -1,14 +1,6 @@
 <h1 class="Heading Heading--1"><%= @project.name %></h1>
 
 <nav class="mb-8">
-  <%= link "Back",
-    to: Routes.project_path(@conn, :index),
-    class: "Button mr-2",
-    data: [
-      "test-selector": "back-button"
-    ]
-  %>
-
   <%= link "Edit",
     to: Routes.project_path(@conn, :edit, @project),
     class: "Button mr-2",

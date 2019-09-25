@@ -1,4 +1,14 @@
-<h1 class="Heading Heading--1"><%= @metric.name %></h1>
+<h1 class="Heading Heading--1">
+  <%= link @project.name,
+    to: Routes.project_path(@conn, :show, @project),
+    class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
+    data: [
+      "test-selector": "project-link"
+    ]
+  %>
+</h1>
+
+<h2 class="Heading Heading--2"><%= @metric.name %></h2>
 
 <%= if @metric.description do %>
   <div class="mb-8 border p-4 bg-gray-100">
@@ -7,14 +17,6 @@
 <% end %>
 
 <nav class="mb-8">
-  <%= link "Back",
-    to: Routes.project_path(@conn, :show, @project),
-    class: "Button mr-2",
-    data: [
-      "test-selector": "back-button"
-    ]
-  %>
-
   <%= link "Edit",
     to: Routes.project_metric_path(@conn, :edit, @project, @metric),
     class: "Button mr-2",

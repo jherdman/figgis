@@ -10,8 +10,8 @@
   <body class="text-gray-900 leading-normal">
     <header class="w-full text-purple-700 p-4">
       <section>
-        <nav class="flex self-center" role="navigation">
-          <span class="mr-8">
+        <nav class="flex items-center" role="navigation">
+          <span class="inline-block mr-8">
             <!-- width="496pt" height="496pt" -->
             <svg class="stroke-current fill-current " height="40" width="40" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg">
               <path d="m48 448h16v16h-16zm0 0"/>
@@ -30,12 +30,20 @@
 
           <%= link "Projects",
             to: Routes.project_path(@conn, :index),
-            class: "Button"
+            class: "font-bold border-b-4 border-purple-300 hover:border-purple-700 inline-block"
           %>
+
+          <div class="flex-grow text-right">
+            <%= link "New project",
+              to: Routes.project_path(@conn, :new),
+              class: "Button",
+              data: ["test-selector": "new-project-button"]
+            %>
+          </div>
         </nav>
       </section>
     </header>
-    <main role="main" class="w-full p-6 container">
+    <main role="main" class="container mx-auto px-2">
       <%= for flash_type <- [:info, :error] do %>
         <%= if get_flash(@conn, flash_type) do %>
           <p class="Alert Alert--<%= flash_type %>" role="alert"><%= get_flash(@conn, flash_type) %></p>
