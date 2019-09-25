@@ -6,7 +6,7 @@
   </div>
 <% end %>
 
-<div>
+<nav class="mb-8">
   <%= link "Back",
     to: Routes.project_path(@conn, :show, @project),
     class: "Button mr-2",
@@ -31,4 +31,4 @@
       "test-selector": "delete-metric-button"
     ]
   %>
-</div>
+</nav>
