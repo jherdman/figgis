@@ -1,4 +1,12 @@
-<h1 class="Heading Heading--1"><%= @project.name %></h1>
+<h1 class="Heading Heading--1">
+  <%= link @project.name,
+    to: Routes.project_path(@conn, :show, @project),
+    class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
+    data: [
+      "test-selector": "project-link"
+    ]
+  %>
+</h1>
 
 <nav class="mb-8">
   <%= link "Edit",
@@ -11,7 +19,7 @@
 
   <%= link "Delete",
     to: Routes.project_path(@conn, :delete, @project),
-    class: "Button",
+    class: "Button mr-2",
     method: :delete,
     data: [
       "test-selector": "delete-project"
@@ -20,16 +28,16 @@
 
   <%= link "New metric",
     to: Routes.project_metric_path(@conn, :new, @project),
-    class: "Button mr-2",
+    class: "Button",
     data: [
       "test-selector": "new-metric-button",
     ]
   %>
 </nav>
 
-<h2 class="Heading Heading--2">Metrics</h2>
-
 <%= if Enum.any?(@metrics) do %>
+  <h2 class="Heading Heading--2">Metrics</h2>
+
   <div class="p-2 border border-gray-300 bg-gray-200 rounded">
     <div class="flex flex-wrap">
       <%= render_many @metrics,
@@ -40,8 +48,4 @@
       %>
     </div>
   </div>
-<% else %>
-  <p>
-    No metrics for this project. <%= link "Create one", to: Routes.project_metric_path(@conn, :new, @project) %>.
-  </p>
 <% end %>

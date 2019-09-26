@@ -1,3 +1,11 @@
-<h1 class="Heading Heading--1">Edit <%= @project.name %></h1>
+<h1 class="Heading Heading--1">
+  <%= link @project.name,
+    to: Routes.project_path(@conn, :show, @project),
+    class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
+    data: [
+      "test-selector": "project-link"
+    ]
+  %>
+</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.project_path(@conn, :update, @project)) %>

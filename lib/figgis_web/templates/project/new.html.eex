@@ -1,3 +1,10 @@
 <h1 class="Heading Heading--1">New Project</h1>
 
+<aside class="Callout">
+  <p>
+    Projects collect a series of related metrics. This could be an
+    application, a test, or anything.
+  </p>
+</aside>
+
 <%= render "form.html", Map.put(assigns, :action, Routes.project_path(@conn, :create)) %>

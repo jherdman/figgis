@@ -43,7 +43,7 @@ defmodule FiggisWeb.ProjectControllerTest do
 
     test "renders form for editing chosen project", %{conn: conn, project: project} do
       conn = get(conn, Routes.project_path(conn, :edit, project))
-      assert html_response(conn, 200) =~ "Edit #{project.name}"
+      assert html_response(conn, 200) =~ project.name
     end
   end
 
@@ -60,7 +60,7 @@ defmodule FiggisWeb.ProjectControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, project: project} do
       conn = put(conn, Routes.project_path(conn, :update, project), project: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit #{project.name}"
+      assert html_response(conn, 200) =~ project.name
     end
   end
 

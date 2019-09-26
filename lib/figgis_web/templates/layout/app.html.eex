@@ -7,7 +7,7 @@
     <title>Figgis · Stats Tracking</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body class="text-gray-900 leading-normal">
+  <body class="text-gray-800 leading-normal">
     <header class="w-full text-purple-700 p-4">
       <section>
         <nav class="flex items-center" role="navigation">
@@ -43,7 +43,7 @@
         </nav>
       </section>
     </header>
-    <main role="main" class="container mx-auto px-2">
+    <main role="main" class="container mx-auto px-2 pt-4">
       <%= for flash_type <- [:info, :error] do %>
         <%= if get_flash(@conn, flash_type) do %>
           <p class="Alert Alert--<%= flash_type %>" role="alert"><%= get_flash(@conn, flash_type) %></p>

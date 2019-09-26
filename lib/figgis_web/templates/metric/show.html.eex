@@ -11,7 +11,7 @@
 <h2 class="Heading Heading--2"><%= @metric.name %></h2>
 
 <%= if @metric.description do %>
-  <div class="mb-8 border p-4 bg-gray-100">
+  <div class="border rounded mb-8 p-4 bg-gray-100">
     <%= text_to_html(@metric.description) %>
   </div>
 <% end %>
@@ -34,3 +34,30 @@
     ]
   %>
 </nav>
+
+<table class="w-full">
+  <thead>
+    <tr>
+      <th class="Th">
+        <%= @metric.x_axis_label %>
+      </th>
+      <th class="Th">
+        <%= @metric.y_axis_label %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="Td">May 13, 1982</td>
+      <td class="Td Td--mono">400</td>
+    </tr>
+    <tr>
+      <td class="Td">May 13, 1982</td>
+      <td class="Td Td--mono">400</td>
+    </tr>
+    <tr>
+      <td class="Td">May 13, 1982</td>
+      <td class="Td Td--mono">400</td>
+    </tr>
+  </tbody>
+</table>
