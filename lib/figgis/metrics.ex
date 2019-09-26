@@ -141,16 +141,17 @@ defmodule Figgis.Metrics do
 
   ## Examples
 
-      iex> create_datum(%{field: value})
+      iex> create_datum(metric, %{field: value})
       {:ok, %Datum{}}
 
-      iex> create_datum(%{field: bad_value})
+      iex> create_datum(metric, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_datum(attrs \\ %{}) do
+  def create_datum(%Metric{} = metric, attrs \\ %{}) do
     %Datum{}
     |> Datum.changeset(attrs)
+    |> Ecto.Changeset.put_change(:metric_id, metric.id)
     |> Repo.insert()
   end
 
@@ -159,16 +160,17 @@ defmodule Figgis.Metrics do
 
   ## Examples
 
-      iex> update_datum(datum, %{field: new_value})
+      iex> update_datum(metric, datum, %{field: new_value})
       {:ok, %Datum{}}
 
-      iex> update_datum(datum, %{field: bad_value})
+      iex> update_datum(metric, datum, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_datum(%Datum{} = datum, attrs) do
+  def update_datum(%Metric{} = metric, %Datum{} = datum, attrs) do
     datum
     |> Datum.changeset(attrs)
+    |> Ecto.Changeset.put_change(:metric_id, metric.id)
     |> Repo.update()
   end
 

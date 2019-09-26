@@ -140,9 +140,8 @@ defmodule Figgis.MetricsTest do
 
     test "create_datum/1 with valid data creates a datum" do
       metric = Factory.insert(:metric)
-      attrs = Map.merge(%{metric_id: metric.id}, @valid_attrs)
 
-      assert {:ok, %Datum{} = datum} = Metrics.create_datum(attrs)
+      assert {:ok, %Datum{} = datum} = Metrics.create_datum(metric, @valid_attrs)
 
       assert datum.x_value == "some x_value"
       assert datum.y_value == "some y_value"
@@ -150,20 +149,25 @@ defmodule Figgis.MetricsTest do
     end
 
     test "create_datum/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Metrics.create_datum(@invalid_attrs)
+      metric = Factory.insert(:metric)
+
+      assert {:error, %Ecto.Changeset{}} = Metrics.create_datum(metric, @invalid_attrs)
     end
 
     test "update_datum/2 with valid data updates the datum" do
-      datum = Factory.insert(:datum)
-      assert {:ok, %Datum{} = datum} = Metrics.update_datum(datum, @update_attrs)
+      metric = Factory.insert(:metric)
+      datum = Factory.insert(:datum, %{metric: metric})
+
+      assert {:ok, %Datum{} = datum} = Metrics.update_datum(metric, datum, @update_attrs)
       assert datum.x_value == "some updated x_value"
       assert datum.y_value == "some updated y_value"
     end
 
     test "update_datum/2 with invalid data returns error changeset" do
-      datum = Factory.insert(:datum)
+      metric = Factory.insert(:metric)
+      datum = Factory.insert(:datum, %{metric: metric})
 
-      assert {:error, %Ecto.Changeset{}} = Metrics.update_datum(datum, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Metrics.update_datum(metric, datum, @invalid_attrs)
 
       refound_datum = Metrics.get_datum!(datum.id)
 
