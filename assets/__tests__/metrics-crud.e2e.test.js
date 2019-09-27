@@ -91,9 +91,56 @@ describe('Project Management', function() {
 
       await expect(page).toMatch('Metric deleted successfully');
 
-      await page.screenshot({ path: '__tests__/artifacts/metrics-current.png' });
+      await page.screenshot({ path: '__tests__/artifacts/metrics-final.png' });
     } catch (err) {
       const screenshotPath = '__tests__/artifacts/metrics-failure.png';
+
+      await page.screenshot({ path: screenshotPath });
+
+      console.error('Screenshot:', screenshotPath);
+
+      throw err;
+    }
+  });
+
+  test('with associated data', async function() {
+    try {
+      await page.goto(ROOT_URL);
+
+      await expect(page).toClick('[data-test-selector="new-project-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
+        'project[name]': 'My New Project',
+      });
+
+      await expect(page).toClick('[data-test-selector="save-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toClick('[data-test-selector="new-metric-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toFillForm('[data-test-selector="metric-form"]', {
+        'metric[name]': 'CSS Bundle Size',
+        'metric[description]': 'Tracks bundle size over time',
+        'metric[x_axis_label]': 'Date',
+        'metric[x_axis_type]': 'date',
+        'metric[y_axis_label]': 'Kilobytes',
+        'metric[y_axis_type]': 'number',
+      });
+
+      await expect(page).toClick('[data-test-selector="save-button"]');
+
+      await page.waitForNavigation();
+
+      await expect(page).toMatch('Metric created successfully');
+
+      await page.screenshot({ path: '__tests__/artifacts/metrics-with-data-current.png' });
+    } catch (err) {
+      const screenshotPath = '__tests__/artifacts/metrics-with-data-failure.png';
 
       await page.screenshot({ path: screenshotPath });
 

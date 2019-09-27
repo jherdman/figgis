@@ -49,15 +49,17 @@ defmodule Figgis.MixProject do
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.1"},
       {:ecto_enum, "~> 1.3"},
+      {:inflex, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:sobelow, "~> 0.8", only: [:dev, :test]},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:jsonapi, "~> 1.2"},
+      {:junit_formatter, "~> 3.0", only: [:test]},
       {:plug_cowboy, "~> 2.0"},
-      {:ex_machina, "~> 2.3", only: :test},
-      {:junit_formatter, "~> 3.0", only: [:test]}
+      {:ex_machina, "~> 2.3", only: :test}
     ]
   end
 
