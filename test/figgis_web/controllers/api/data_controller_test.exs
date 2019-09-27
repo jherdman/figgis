@@ -27,8 +27,8 @@ defmodule FiggisWeb.Api.DataControllerTest do
         "data" => %{
           "type" => "datum",
           "attributes" => %{
-            "x_value" => @x_value,
-            "y_value" => @y_value
+            "xValue" => @x_value,
+            "yValue" => @y_value
           }
         }
       }

@@ -53,13 +53,14 @@ defmodule Figgis.MixProject do
       {:gettext, "~> 0.11"},
       {:inflex, "~> 2.0"},
       {:jason, "~> 1.0"},
-      {:jsonapi, "~> 1.2"},
+      {:jsonapi, github: "jherdman/jsonapi", branch: "fix-underscore-params-with-camelized-keys"},
       {:junit_formatter, "~> 3.0", only: [:test]},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
-      {:sobelow, "~> 0.8", only: [:dev, :test]}
+      {:sobelow, "~> 0.8", only: [:dev, :test]},
+      {:timex, "~>3.6"}
     ]
   end
 

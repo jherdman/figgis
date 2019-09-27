@@ -37,8 +37,9 @@ defmodule FiggisWeb.MetricController do
 
   def show(conn, %{"id" => id}, project) do
     metric = Metrics.get_metric!(id)
+    data = metric.data
 
-    render(conn, "show.html", project: project, metric: metric)
+    render(conn, "show.html", project: project, metric: metric, data: data)
   end
 
   def edit(conn, %{"id" => id}, project) do

@@ -35,29 +35,35 @@
   %>
 </nav>
 
-<table class="w-full">
-  <thead>
-    <tr>
-      <th class="Th">
-        <%= @metric.x_axis_label %>
-      </th>
-      <th class="Th">
-        <%= @metric.y_axis_label %>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="Td">May 13, 1982</td>
-      <td class="Td Td--mono">400</td>
-    </tr>
-    <tr>
-      <td class="Td">May 13, 1982</td>
-      <td class="Td Td--mono">400</td>
-    </tr>
-    <tr>
-      <td class="Td">May 13, 1982</td>
-      <td class="Td Td--mono">400</td>
-    </tr>
-  </tbody>
-</table>
+<%= if Enum.any?(@data) do %>
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="Th">
+          <%= @metric.x_axis_label %>
+        </th>
+        <th class="Th">
+          <%= @metric.y_axis_label %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for datum <- @data do %>
+        <tr data-test-selector="datum-row" data-test-id="<%= datum.id %>">
+          <td class="<%= datum_row_classes(@metric.x_axis_type) %>">
+            <%= format_value(@metric.x_axis_type, datum.x_value) %>
+          </td>
+          <td class="<%= datum_row_classes(@metric.y_axis_type) %>">
+            <%= format_value(@metric.y_axis_type, datum.y_value) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
+
+  <code class="block m-4">
+    $ yard add -D some-package-name-here
+  </code>
+<% end %>

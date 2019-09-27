@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { addDays } from 'date-fns';
 
 const ROOT_URL = 'http://localhost:4002';
 const SANDBOX_URL = `${ROOT_URL}/phoenix/sandbox`;
@@ -137,6 +138,39 @@ describe('Project Management', function() {
       await page.waitForNavigation();
 
       await expect(page).toMatch('Metric created successfully');
+
+      const startingDate = new Date();
+      const maxRecords = 10;
+      const metricUrl = await page.url();
+      const metricId = metricUrl.split('/').pop();
+
+      for (let i = 0; i < maxRecords; i++) {
+        let body = {
+          data: {
+            type: 'datum',
+            attributes: {
+              xValue: addDays(startingDate, i),
+              yValue: Math.floor(Math.random() * 10000).toString(),
+            },
+          },
+        };
+
+        await fetch(`${ROOT_URL}/api/metrics/${metricId}/data`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/vnd.api+json',
+            'Content-Type': 'application/vnd.api+json',
+            'User-Agent': sandboxMeta,
+          },
+          body: JSON.stringify(body),
+        });
+      }
+
+      await page.reload();
+
+      let datumRowHandles = await page.$$('[data-test-selector="datum-row"]');
+
+      expect(datumRowHandles).toHaveLength(maxRecords);
 
       await page.screenshot({ path: '__tests__/artifacts/metrics-with-data-current.png' });
     } catch (err) {

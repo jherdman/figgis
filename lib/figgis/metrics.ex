@@ -36,7 +36,14 @@ defmodule Figgis.Metrics do
       ** (Ecto.NoResultsError)
 
   """
-  def get_metric!(id), do: Repo.get!(Metric, id)
+  def get_metric!(id) do
+    queryable =
+      from m in Metric,
+        where: m.id == ^id,
+        preload: :data
+
+    Repo.one!(queryable)
+  end
 
   @doc """
   Creates a metric.
