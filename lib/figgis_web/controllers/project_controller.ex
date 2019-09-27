@@ -28,7 +28,9 @@ defmodule FiggisWeb.ProjectController do
 
   def show(conn, %{"id" => id}) do
     project = Projects.get_project!(id)
-    render(conn, "show.html", project: project)
+    metrics = project.metrics
+
+    render(conn, "show.html", project: project, metrics: metrics)
   end
 
   def edit(conn, %{"id" => id}) do

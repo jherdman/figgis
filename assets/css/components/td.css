@@ -1,0 +1,11 @@
+/**
+ * @define Td
+ */
+
+.Td {
+  @apply p-2 border-b border-gray-500;
+}
+
+.Td--mono {
+  @apply font-mono text-right;
+}

@@ -12,4 +12,9 @@ module.exports = {
     ].filter(Boolean),
     headless: process.env.HEADLESS !== 'false',
   },
+  server: {
+    command: 'cd .. && MIX_ENV=test mix phx.server',
+    launchTimeout: 10000,
+    port: 4002,
+  },
 };

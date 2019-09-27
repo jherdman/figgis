@@ -1,7 +1,7 @@
 defmodule Figgis.ProjectsTest do
   use Figgis.DataCase
 
-  alias Figgis.Projects
+  alias Figgis.{Factory, Projects}
 
   describe "projects" do
     alias Figgis.Projects.Project
@@ -26,7 +26,22 @@ defmodule Figgis.ProjectsTest do
 
     test "get_project!/1 returns the project with given id" do
       project = project_fixture()
-      assert Projects.get_project!(project.id) == project
+      assert Projects.get_project!(project.id).id == project.id
+    end
+
+    test "get_project!/1 preloads associated metrics" do
+      project = Factory.insert(:project)
+      Factory.insert(:metric, %{project: project})
+      Factory.insert(:metric, %{project: project})
+
+      # Insert an unrelated Metric to ensure we're scoping
+      Factory.insert(:metric)
+
+      assert found_project = Projects.get_project!(project.id)
+
+      metrics = found_project.metrics
+
+      assert Enum.count(metrics) == 2
     end
 
     test "create_project/1 with valid data creates a project" do
@@ -47,7 +62,7 @@ defmodule Figgis.ProjectsTest do
     test "update_project/2 with invalid data returns error changeset" do
       project = project_fixture()
       assert {:error, %Ecto.Changeset{}} = Projects.update_project(project, @invalid_attrs)
-      assert project == Projects.get_project!(project.id)
+      assert project.id == Projects.get_project!(project.id).id
     end
 
     test "delete_project/1 deletes the project" do

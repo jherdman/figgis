@@ -18,6 +18,10 @@
   @apply block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight;
 
   &:focus {
-    @apply bg-white outline-none;
+    @apply bg-white outline-none shadow-outline;
+  }
+
+  &:hover {
+    @apply border-gray-500;
   }
 }

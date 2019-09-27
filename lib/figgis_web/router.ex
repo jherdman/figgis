@@ -14,17 +14,21 @@ defmodule FiggisWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug JSONAPI.EnsureSpec
+    plug JSONAPI.UnderscoreParameters
   end
 
   scope "/", FiggisWeb do
     pipe_through :browser
 
-    resources "/", ProjectController, as: :project
+    resources "/", ProjectController, as: :project do
+      resources "/metrics", MetricController, except: [:index]
+    end
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", FiggisWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", FiggisWeb, as: :api do
+    pipe_through :api
+
+    post "/metrics/:metric_id/data", Api.DataController, :create
+  end
 end

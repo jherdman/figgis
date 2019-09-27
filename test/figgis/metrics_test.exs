@@ -10,17 +10,17 @@ defmodule Figgis.MetricsTest do
       description: "some description",
       name: "some name",
       x_axis_label: "some x_axis_label",
-      x_axis_type: "some x_axis_type",
+      x_axis_type: "date",
       y_axis_label: "some y_axis_label",
-      y_axis_type: "some y_axis_type"
+      y_axis_type: "number"
     }
     @update_attrs %{
       description: "some updated description",
       name: "some updated name",
       x_axis_label: "some updated x_axis_label",
-      x_axis_type: "some updated x_axis_type",
+      x_axis_type: "number",
       y_axis_label: "some updated y_axis_label",
-      y_axis_type: "some updated y_axis_type"
+      y_axis_type: "date"
     }
     @invalid_attrs %{
       description: nil,
@@ -49,38 +49,42 @@ defmodule Figgis.MetricsTest do
 
     test "create_metric/1 with valid data creates a metric" do
       project = Factory.insert(:project)
-      attrs = Map.merge(@valid_attrs, %{project_id: project.id})
 
-      assert {:ok, %Metric{} = metric} = Metrics.create_metric(attrs)
+      assert {:ok, %Metric{} = metric} = Metrics.create_metric(project, @valid_attrs)
 
       assert metric.project_id == project.id
       assert metric.description == "some description"
       assert metric.name == "some name"
       assert metric.x_axis_label == "some x_axis_label"
-      assert metric.x_axis_type == "some x_axis_type"
+      assert metric.x_axis_type == :date
       assert metric.y_axis_label == "some y_axis_label"
-      assert metric.y_axis_type == "some y_axis_type"
+      assert metric.y_axis_type == :number
     end
 
     test "create_metric/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Metrics.create_metric(@invalid_attrs)
+      project = Factory.insert(:project)
+
+      assert {:error, %Ecto.Changeset{}} = Metrics.create_metric(project, @invalid_attrs)
     end
 
     test "update_metric/2 with valid data updates the metric" do
       metric = Factory.insert(:metric)
-      assert {:ok, %Metric{} = metric} = Metrics.update_metric(metric, @update_attrs)
+      project = metric.project
+
+      assert {:ok, %Metric{} = metric} = Metrics.update_metric(project, metric, @update_attrs)
       assert metric.description == "some updated description"
       assert metric.name == "some updated name"
       assert metric.x_axis_label == "some updated x_axis_label"
-      assert metric.x_axis_type == "some updated x_axis_type"
+      assert metric.x_axis_type == :number
       assert metric.y_axis_label == "some updated y_axis_label"
-      assert metric.y_axis_type == "some updated y_axis_type"
+      assert metric.y_axis_type == :date
     end
 
     test "update_metric/2 with invalid data returns error changeset" do
       metric = Factory.insert(:metric)
+      project = metric.project
 
-      assert {:error, %Ecto.Changeset{}} = Metrics.update_metric(metric, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Metrics.update_metric(project, metric, @invalid_attrs)
 
       found_metric = Metrics.get_metric!(metric.id)
 
@@ -136,9 +140,8 @@ defmodule Figgis.MetricsTest do
 
     test "create_datum/1 with valid data creates a datum" do
       metric = Factory.insert(:metric)
-      attrs = Map.merge(%{metric_id: metric.id}, @valid_attrs)
 
-      assert {:ok, %Datum{} = datum} = Metrics.create_datum(attrs)
+      assert {:ok, %Datum{} = datum} = Metrics.create_datum(metric, @valid_attrs)
 
       assert datum.x_value == "some x_value"
       assert datum.y_value == "some y_value"
@@ -146,20 +149,25 @@ defmodule Figgis.MetricsTest do
     end
 
     test "create_datum/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Metrics.create_datum(@invalid_attrs)
+      metric = Factory.insert(:metric)
+
+      assert {:error, %Ecto.Changeset{}} = Metrics.create_datum(metric, @invalid_attrs)
     end
 
     test "update_datum/2 with valid data updates the datum" do
-      datum = Factory.insert(:datum)
-      assert {:ok, %Datum{} = datum} = Metrics.update_datum(datum, @update_attrs)
+      metric = Factory.insert(:metric)
+      datum = Factory.insert(:datum, %{metric: metric})
+
+      assert {:ok, %Datum{} = datum} = Metrics.update_datum(metric, datum, @update_attrs)
       assert datum.x_value == "some updated x_value"
       assert datum.y_value == "some updated y_value"
     end
 
     test "update_datum/2 with invalid data returns error changeset" do
-      datum = Factory.insert(:datum)
+      metric = Factory.insert(:metric)
+      datum = Factory.insert(:datum, %{metric: metric})
 
-      assert {:error, %Ecto.Changeset{}} = Metrics.update_datum(datum, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Metrics.update_datum(metric, datum, @invalid_attrs)
 
       refound_datum = Metrics.get_datum!(datum.id)
 

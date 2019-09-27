@@ -48,15 +48,19 @@ defmodule Figgis.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.1"},
-      {:postgrex, ">= 0.0.0"},
+      {:ecto_enum, "~> 1.3"},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:gettext, "~> 0.11"},
+      {:inflex, "~> 2.0"},
+      {:jason, "~> 1.0"},
+      {:jsonapi, github: "jherdman/jsonapi", branch: "fix-underscore-params-with-camelized-keys"},
+      {:junit_formatter, "~> 3.0", only: [:test]},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:sobelow, "~> 0.8", only: [:dev, :test]},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ex_machina, "~> 2.3", only: :test},
-      {:junit_formatter, "~> 3.0", only: [:test]}
+      {:postgrex, ">= 0.0.0"},
+      {:sobelow, "~> 0.8", only: [:dev, :test]},
+      {:timex, "~>3.6"}
     ]
   end
 

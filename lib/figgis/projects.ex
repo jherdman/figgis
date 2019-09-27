@@ -35,7 +35,15 @@ defmodule Figgis.Projects do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project!(id) do
+    queryable =
+      from p in Project,
+        where: p.id == ^id,
+        order_by: p.inserted_at,
+        preload: :metrics
+
+    Repo.one!(queryable)
+  end
 
   @doc """
   Creates a project.

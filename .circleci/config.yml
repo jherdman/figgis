@@ -43,12 +43,10 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
-            - v1-mix-cache-{{ .Branch }}
-            - v1-mix-cache
-
-      - restore_cache:
-          keys:
+            - v2-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache
+            - v1-build-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
             - v1-build-cache-{{ .Branch }}
             - v1-build-cache
 
@@ -57,27 +55,30 @@ jobs:
           command: mix do deps.get, deps.compile
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
+          key: v2-mix-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
           paths:
             - "deps"
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}
+          key: v2-mix-cache-{{ .Branch }}
           paths:
             - "deps"
 
       - save_cache:
-          key: v1-mix-cache
+          key: v2-mix-cache
           paths:
             - "deps"
-            - "~/.mix"
 
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}
+          key: v2-build-cache-{{ .Branch }}--{{ checksum "mix.lock" }}
           paths: "_build"
 
       - save_cache:
-          key: v1-build-cache
+          key: v2-build-cache-{{ .Branch }}
+          paths: "_build"
+
+      - save_cache:
+          key: v2-build-cache
           paths: "_build"
 
       - restore_cache:
@@ -161,14 +162,6 @@ jobs:
       - run:
           name: Build static assets
           command: cd assets && yarn build
-
-      - run:
-          name: Prepare test server
-          command: elixir --erl "-detached" -S mix phx.server
-
-      - run:
-          name: Wait for Elixir
-          command: dockerize -wait tcp://localhost:4002 -timeout 1m
 
       - run:
           name: Run Jest Tests

@@ -1,0 +1,10 @@
+/**
+ * @define Table
+ */
+
+.Table {
+  @apply w-full;
+
+  &-th {
+  }
+}

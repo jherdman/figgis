@@ -13,10 +13,10 @@ config :figgis, Figgis.Repo,
 config :figgis, FiggisWeb.Endpoint,
   http: [port: 4002],
   server: true,
-  debug_errors: true,
+  debug_errors: false,
   check_origin: false
 
 # Print only warnings and errors during test
-config :logger, level: :info
+config :logger, level: :warn
 
 config :figgis, sql_sandbox: true

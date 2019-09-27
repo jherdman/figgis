@@ -1,0 +1,7 @@
+/**
+ * @define Th
+ */
+
+.Th {
+  @apply bg-purple-200 border-b border-purple-700 font-semibold pl-2 py-2 text-left w-1/2;
+}

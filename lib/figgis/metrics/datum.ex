@@ -21,6 +21,7 @@ defmodule Figgis.Metrics.Datum do
   def changeset(datum, attrs) do
     datum
     |> cast(attrs, [:x_value, :y_value, :metric_id])
-    |> validate_required([:x_value, :y_value, :metric_id])
+    |> validate_required([:x_value, :y_value])
+    |> foreign_key_constraint(:metric_id)
   end
 end

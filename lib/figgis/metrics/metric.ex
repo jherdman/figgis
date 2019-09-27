@@ -13,9 +13,9 @@ defmodule Figgis.Metrics.Metric do
     field :description, :string
     field :name, :string
     field :x_axis_label, :string
-    field :x_axis_type, :string
+    field :x_axis_type, AxisTypes
     field :y_axis_label, :string
-    field :y_axis_type, :string
+    field :y_axis_type, AxisTypes
 
     belongs_to :project, Project
 
@@ -39,11 +39,11 @@ defmodule Figgis.Metrics.Metric do
     |> validate_required([
       :name,
       :description,
-      :project_id,
       :x_axis_label,
       :x_axis_type,
       :y_axis_label,
       :y_axis_type
     ])
+    |> foreign_key_constraint(:project_id)
   end
 end
