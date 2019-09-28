@@ -43,7 +43,7 @@ defmodule Figgis.MixProject do
   defp deps do
     [
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
       {:phoenix, "~> 1.4.9"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
