@@ -4,6 +4,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "webpack --mode production",
+    "lint:js": "eslint .",
     "test": "jest",
     "test:ci": "jest --ci --reporters=jest-junit --reporters=default --runInBand",
     "watch": "webpack --mode development --watch"
@@ -20,6 +21,10 @@
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "date-fns": "^2.4.0",
+    "eslint": "^6.4.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-node": "^10.0.0",
     "expect-puppeteer": "^4.3.0",
     "jest": "^24.9.0",
     "jest-junit": "^8.0.0",

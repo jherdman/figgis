@@ -17,7 +17,7 @@ class TailwindCompatiblePurgeCSSExtrator {
   }
 }
 
-module.exports = (env, options) => ({
+module.exports = (/* env, options */) => ({
   optimization: {
     minimizer: [
       new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
@@ -36,9 +36,13 @@ module.exports = (env, options) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
       },
       {
         test: /\.css$/i,
@@ -46,7 +50,7 @@ module.exports = (env, options) => ({
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 }
+            options: { importLoaders: 1 },
           },
           'postcss-loader',
         ],

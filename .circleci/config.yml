@@ -130,6 +130,10 @@ jobs:
           paths:
             - priv/plts
 
+      - run:
+          name: Lint JavaScript
+          command: cd assets && yarn lint:js
+
   run_tests:
     <<: *defaults
 
