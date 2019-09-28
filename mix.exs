@@ -53,7 +53,7 @@ defmodule Figgis.MixProject do
       {:gettext, "~> 0.11"},
       {:inflex, "~> 2.0"},
       {:jason, "~> 1.0"},
-      {:jsonapi, github: "jherdman/jsonapi", branch: "fix-underscore-params-with-camelized-keys"},
+      {:jsonapi, "~> 1.2"},
       {:junit_formatter, "~> 3.0", only: [:test]},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
