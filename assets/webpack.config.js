@@ -1,19 +1,19 @@
-const path = require('path');
-const glob = require('glob');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path')
+const glob = require('glob')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const PATHS = {
-  src: path.join(__dirname, '..', 'lib', 'figgis_web', 'templates'),
-};
+  src: path.join(__dirname, '..', 'lib', 'figgis_web', 'templates')
+}
 
 // @see https://tailwindcss.com/docs/controlling-file-size
 class TailwindCompatiblePurgeCSSExtrator {
-  static extract(content) {
-    return content.match(/[\w-/:]+(?<!:)/g) || [];
+  static extract (content) {
+    return content.match(/[\w-/:]+(?<!:)/g) || []
   }
 }
 
@@ -36,13 +36,13 @@ module.exports = (/* env, options */) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
       {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        loader: 'eslint-loader',
+        loader: 'eslint-loader'
       },
       {
         test: /\.css$/i,
@@ -50,29 +50,28 @@ module.exports = (/* env, options */) => ({
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 },
+            options: { importLoaders: 1 }
           },
-          'postcss-loader',
-        ],
-      },
-    ],
+          'postcss-loader'
+        ]
+      }
+    ]
   },
   plugins: [
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-    ...process.env.NODE_ENV === 'production' ?
-    [
-      new PurgecssPlugin({
-        paths: glob.sync(`${PATHS.src}/**/*.html.eex`),
-        extractors: [
-          {
-            extractor: TailwindCompatiblePurgeCSSExtrator,
-            extensions: ['css', 'html.eex'],
-          },
-        ],
-      }),
-    ]
-    :
-    []
-  ],
-});
+    ...process.env.NODE_ENV === 'production'
+      ? [
+        new PurgecssPlugin({
+          paths: glob.sync(`${PATHS.src}/**/*.html.eex`),
+          extractors: [
+            {
+              extractor: TailwindCompatiblePurgeCSSExtrator,
+              extensions: ['css', 'html.eex']
+            }
+          ]
+        })
+      ]
+      : []
+  ]
+})
