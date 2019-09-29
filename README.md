@@ -15,8 +15,9 @@
 
 ## Linting
 
-`$ mix lint`
-`$ mix dialyzer`
+* `$ mix lint`
+* `$ mix dialyzer`
+* `$ cd assets ; yarn lint`
 
 ## Building
 
