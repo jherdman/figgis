@@ -110,7 +110,7 @@ jobs:
           at: .
 
       - run:
-          name: Lint Project
+          name: Lint Elixir Project
           command: mix lint
 
       - run:
@@ -119,16 +119,20 @@ jobs:
 
       - restore_cache:
           keys:
-            - v2-plt--{{ checksum "dialyzer-checksummable" }}
+            - v3-plt--{{ checksum "dialyzer-checksummable" }}
 
       - run:
           name: Type Check
-          command: MIX_ENV=dev mix dialyzer --halt-exit-status
+          command: MIX_ENV=dev mix dialyzer
 
       - save_cache:
-          key: v2-plt--{{checksum "dialyzer-checksummable" }}
+          key: v3-plt--{{checksum "dialyzer-checksummable" }}
           paths:
             - priv/plts
+
+      - run:
+          name: Lint Front End Assets
+          command: cd assets && yarn lint
 
   run_tests:
     <<: *defaults

@@ -4,7 +4,4 @@
 
 .Table {
   @apply w-full;
-
-  &-th {
-  }
 }
