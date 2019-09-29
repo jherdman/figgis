@@ -110,7 +110,7 @@ jobs:
           at: .
 
       - run:
-          name: Lint Project
+          name: Lint Elixir Project
           command: mix lint
 
       - run:
@@ -131,8 +131,8 @@ jobs:
             - priv/plts
 
       - run:
-          name: Lint JavaScript
-          command: cd assets && yarn lint:js
+          name: Lint Front End Assets
+          command: cd assets && yarn lint
 
   run_tests:
     <<: *defaults

@@ -4,7 +4,9 @@
   "scripts": {
     "build": "webpack --mode development",
     "deploy": "webpack --mode production",
+    "lint:css": "stylelint .",
     "lint:js": "eslint .",
+    "lint": "yarn lint:css && yarn lint:js",
     "test": "jest",
     "test:ci": "jest --ci --reporters=jest-junit --reporters=default --runInBand",
     "watch": "webpack --mode development --watch"
@@ -41,6 +43,8 @@
     "postcss-preset-env": "^6.7.0",
     "puppeteer": "^1.20.0",
     "purgecss-webpack-plugin": "^1.6.0",
+    "stylelint": "^11.0.0",
+    "stylelint-config-recommended": "^3.0.0",
     "tailwindcss": "^1.1.2",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",

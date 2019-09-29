@@ -45,6 +45,7 @@ module.exports = {
         'jest.config.js',
         'jest-puppeteer.config.js',
         'postcss.config.js',
+        'styleline.config.js',
         'tailwind.config.js',
         'webpack.config.js',
       ],
