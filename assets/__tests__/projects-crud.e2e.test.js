@@ -17,8 +17,8 @@ describe('Project Management', function () {
     return fetch(SANDBOX_URL, {
       method: 'DELETE',
       headers: {
-        'User-Agent': sandboxMeta
-      }
+        'User-Agent': sandboxMeta,
+      },
     });
   });
 
@@ -31,7 +31,7 @@ describe('Project Management', function () {
       await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-        'project[name]': 'My New Project'
+        'project[name]': 'My New Project',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -47,7 +47,7 @@ describe('Project Management', function () {
       await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-        'project[name]': 'My Updated Project'
+        'project[name]': 'My Updated Project',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');

@@ -4,8 +4,8 @@ module.exports = {
     require('tailwindcss'),
     require('postcss-preset-env')({
       features: {
-        'nesting-rules': true
-      }
-    })
-  ]
+        'nesting-rules': true,
+      },
+    }),
+  ],
 };

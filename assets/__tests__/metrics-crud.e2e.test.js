@@ -18,8 +18,8 @@ describe('Project Management', function () {
     return fetch(SANDBOX_URL, {
       method: 'DELETE',
       headers: {
-        'User-Agent': sandboxMeta
-      }
+        'User-Agent': sandboxMeta,
+      },
     });
   });
 
@@ -32,7 +32,7 @@ describe('Project Management', function () {
       await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-        'project[name]': 'My New Project'
+        'project[name]': 'My New Project',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -49,7 +49,7 @@ describe('Project Management', function () {
         'metric[x_axis_label]': 'Date',
         'metric[x_axis_type]': 'date',
         'metric[y_axis_label]': 'Kilobytes',
-        'metric[y_axis_type]': 'number'
+        'metric[y_axis_type]': 'number',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -63,7 +63,7 @@ describe('Project Management', function () {
       await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="metric-form"]', {
-        'metric[name]': 'JavaScript Bundle Size'
+        'metric[name]': 'JavaScript Bundle Size',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -113,7 +113,7 @@ describe('Project Management', function () {
       await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
-        'project[name]': 'My New Project'
+        'project[name]': 'My New Project',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -130,7 +130,7 @@ describe('Project Management', function () {
         'metric[x_axis_label]': 'Date',
         'metric[x_axis_type]': 'date',
         'metric[y_axis_label]': 'Kilobytes',
-        'metric[y_axis_type]': 'number'
+        'metric[y_axis_type]': 'number',
       });
 
       await expect(page).toClick('[data-test-selector="save-button"]');
@@ -150,9 +150,9 @@ describe('Project Management', function () {
             type: 'datum',
             attributes: {
               xValue: addDays(startingDate, i),
-              yValue: Math.floor(Math.random() * 10000).toString()
-            }
-          }
+              yValue: Math.floor(Math.random() * 10000).toString(),
+            },
+          },
         };
 
         await fetch(`${ROOT_URL}/api/metrics/${metricId}/data`, {
@@ -160,9 +160,9 @@ describe('Project Management', function () {
           headers: {
             Accept: 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'User-Agent': sandboxMeta
+            'User-Agent': sandboxMeta,
           },
-          body: JSON.stringify(body)
+          body: JSON.stringify(body),
         });
       }
 

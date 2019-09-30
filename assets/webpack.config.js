@@ -7,7 +7,7 @@ const PurgecssPlugin = require('purgecss-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const PATHS = {
-  src: path.join(__dirname, '..', 'lib', 'figgis_web', 'templates')
+  src: path.join(__dirname, '..', 'lib', 'figgis_web', 'templates'),
 };
 
 // @see https://tailwindcss.com/docs/controlling-file-size
@@ -21,28 +21,28 @@ module.exports = (/* env, options */) => ({
   optimization: {
     minimizer: [
       new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
   entry: {
-    './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+    './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
   },
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    path: path.resolve(__dirname, '../priv/static/js'),
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        loader: 'eslint-loader',
       },
       {
         test: /\.css$/i,
@@ -50,12 +50,12 @@ module.exports = (/* env, options */) => ({
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 }
+            options: { importLoaders: 1 },
           },
-          'postcss-loader'
-        ]
-      }
-    ]
+          'postcss-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
@@ -67,11 +67,11 @@ module.exports = (/* env, options */) => ({
           extractors: [
             {
               extractor: TailwindCompatiblePurgeCSSExtrator,
-              extensions: ['css', 'html.eex']
-            }
-          ]
-        })
+              extensions: ['css', 'html.eex'],
+            },
+          ],
+        }),
       ]
-      : []
-  ]
+      : [],
+  ],
 });

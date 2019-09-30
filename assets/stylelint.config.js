@@ -3,6 +3,6 @@ module.exports = {
   ignoreFiles: [
     'package.json',
     'static/favicon.ico',
-    '**/*.{js,png}'
-  ]
+    '**/*.{js,png}',
+  ],
 };
