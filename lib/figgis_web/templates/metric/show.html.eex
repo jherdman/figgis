@@ -36,6 +36,17 @@
 </nav>
 
 <%= if Enum.any?(@data) do %>
+  <canvas
+    class="js-chart"
+    width="400"
+    height="400"
+    aria-label="Line chart depicting the trend for this metric"
+    role="img"
+    data-chart-x-type="<%= @metric.x_axis_type %>"
+    data-chart-y-type-"<%= @metric.y_axis_type %>"
+  >
+  </canvas>
+
   <table class="w-full">
     <thead>
       <tr>
@@ -49,7 +60,13 @@
     </thead>
     <tbody>
       <%= for datum <- @data do %>
-        <tr data-test-selector="datum-row" data-test-id="<%= datum.id %>">
+        <tr
+          class="js-datum-row"
+          data-x-value="<%= datum.x_value %>"
+          data-y-value="<%= datum.y_value %>"
+          data-test-selector="datum-row"
+          data-test-id="<%= datum.id %>"
+        >
           <td class="<%= datum_row_classes(@metric.x_axis_type) %>">
             <%= format_value(@metric.x_axis_type, datum.x_value) %>
           </td>

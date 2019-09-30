@@ -27,6 +27,9 @@ module.exports = (/* env, options */) => ({
   entry: {
     './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
   },
+  externals: {
+    moment: 'moment',
+  },
   output: {
     filename: 'app.js',
     path: path.resolve(__dirname, '../priv/static/js'),

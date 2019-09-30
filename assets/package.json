@@ -12,6 +12,9 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "chart.js": "^2.8.0",
+    "chartjs-adapter-date-fns": "^0.1.2",
+    "date-fns": "^1.30.0",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html"
   },
@@ -22,7 +25,6 @@
     "babel-loader": "^8.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
-    "date-fns": "^2.4.0",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-loader": "^3.0.2",

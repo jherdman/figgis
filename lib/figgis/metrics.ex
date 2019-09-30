@@ -40,6 +40,7 @@ defmodule Figgis.Metrics do
     queryable =
       from m in Metric,
         where: m.id == ^id,
+        order_by: [desc: m.inserted_at],
         preload: :data
 
     Repo.one!(queryable)
