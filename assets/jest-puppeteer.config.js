@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = {
   launch: {
@@ -17,4 +17,4 @@ module.exports = {
     launchTimeout: 10000,
     port: 4002
   }
-}
+};

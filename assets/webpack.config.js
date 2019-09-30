@@ -1,19 +1,19 @@
-const path = require('path')
-const glob = require('glob')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const PurgecssPlugin = require('purgecss-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const path = require('path');
+const glob = require('glob');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const PATHS = {
   src: path.join(__dirname, '..', 'lib', 'figgis_web', 'templates')
-}
+};
 
 // @see https://tailwindcss.com/docs/controlling-file-size
 class TailwindCompatiblePurgeCSSExtrator {
   static extract (content) {
-    return content.match(/[\w-/:]+(?<!:)/g) || []
+    return content.match(/[\w-/:]+(?<!:)/g) || [];
   }
 }
 
@@ -74,4 +74,4 @@ module.exports = (/* env, options */) => ({
       ]
       : []
   ]
-})
+});

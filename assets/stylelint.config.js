@@ -5,4 +5,4 @@ module.exports = {
     'static/favicon.ico',
     '**/*.{js,png}'
   ]
-}
+};

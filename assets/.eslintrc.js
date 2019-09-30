@@ -18,6 +18,7 @@ module.exports = {
     'standard',
   ],
   'rules': {
+    'semi': ['error', 'always']
   },
   overrides: [
     // jest files

@@ -1,17 +1,17 @@
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-const ROOT_URL = 'http://localhost:4002'
-const SANDBOX_URL = `${ROOT_URL}/phoenix/sandbox`
+const ROOT_URL = 'http://localhost:4002';
+const SANDBOX_URL = `${ROOT_URL}/phoenix/sandbox`;
 
-let sandboxMeta
+let sandboxMeta;
 
 describe('Project Management', function () {
   beforeEach(async function () {
-    const response = await fetch(SANDBOX_URL, { method: 'POST' })
-    sandboxMeta = await response.text()
+    const response = await fetch(SANDBOX_URL, { method: 'POST' });
+    sandboxMeta = await response.text();
 
-    return page.setUserAgent(sandboxMeta)
-  })
+    return page.setUserAgent(sandboxMeta);
+  });
 
   afterEach(async function () {
     return fetch(SANDBOX_URL, {
@@ -19,60 +19,60 @@ describe('Project Management', function () {
       headers: {
         'User-Agent': sandboxMeta
       }
-    })
-  })
+    });
+  });
 
   test('CRUD operations', async function () {
     try {
-      await page.goto(ROOT_URL)
+      await page.goto(ROOT_URL);
 
-      await expect(page).toClick('[data-test-selector="new-project-button"]')
+      await expect(page).toClick('[data-test-selector="new-project-button"]');
 
-      await page.waitForNavigation()
+      await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
         'project[name]': 'My New Project'
-      })
+      });
 
-      await expect(page).toClick('[data-test-selector="save-button"]')
+      await expect(page).toClick('[data-test-selector="save-button"]');
 
-      await page.waitForNavigation()
+      await page.waitForNavigation();
 
-      await expect(page).toMatch('My New Project')
+      await expect(page).toMatch('My New Project');
 
-      await expect(page).toMatch('Project created successfully')
+      await expect(page).toMatch('Project created successfully');
 
-      await expect(page).toClick('[data-test-selector="edit-project"]')
+      await expect(page).toClick('[data-test-selector="edit-project"]');
 
-      await page.waitForNavigation()
+      await page.waitForNavigation();
 
       await expect(page).toFillForm('[data-test-selector="new-project-form"]', {
         'project[name]': 'My Updated Project'
-      })
+      });
 
-      await expect(page).toClick('[data-test-selector="save-button"]')
+      await expect(page).toClick('[data-test-selector="save-button"]');
 
-      await page.waitForNavigation()
+      await page.waitForNavigation();
 
-      await expect(page).toMatch('Project updated successfully')
+      await expect(page).toMatch('Project updated successfully');
 
-      await expect(page).toMatch('My Updated Project')
+      await expect(page).toMatch('My Updated Project');
 
-      await expect(page).toClick('[data-test-selector="delete-project"]')
+      await expect(page).toClick('[data-test-selector="delete-project"]');
 
-      await page.waitForNavigation()
+      await page.waitForNavigation();
 
-      await page.screenshot({ path: '__tests__/artifacts/project-final.png' })
+      await page.screenshot({ path: '__tests__/artifacts/project-final.png' });
 
-      await expect(page).toMatch('Project deleted successfully')
+      await expect(page).toMatch('Project deleted successfully');
     } catch (err) {
-      const screenshotPath = '__tests__/artifacts/project-failure.png'
+      const screenshotPath = '__tests__/artifacts/project-failure.png';
 
-      await page.screenshot({ path: screenshotPath })
+      await page.screenshot({ path: screenshotPath });
 
-      console.error('Screenshot:', screenshotPath)
+      console.error('Screenshot:', screenshotPath);
 
-      throw err
+      throw err;
     }
-  })
-})
+  });
+});
