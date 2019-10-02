@@ -76,7 +76,7 @@
   <section class="js-no-data-section hidden">
     <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
 
-    <code class="block m-4">
+    <code class="block m-4 font-mono">
       $ yard add -D some-package-name-here
     </code>
   </section>
