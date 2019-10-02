@@ -119,7 +119,7 @@ defmodule Figgis.Metrics do
 
   """
   def list_data(%Metric{} = metric) do
-    Repo.all(from d in Ecto.assoc(metric, :data))
+    Repo.all(from(d in Ecto.assoc(metric, :data)))
   end
 
   @doc """
