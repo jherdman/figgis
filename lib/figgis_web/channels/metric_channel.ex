@@ -24,7 +24,7 @@ defmodule FiggisWeb.MetricChannel do
 
   def handle_info({:after_join, _params}, socket) do
     metric = Metrics.get_metric!(socket.assigns[:metric_id])
-    data = metric.data
+    data = Metrics.list_data(metric)
 
     push(socket, "data", %{data: render_data(data)})
 
