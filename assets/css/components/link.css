@@ -1,0 +1,15 @@
+/**
+ * @define Link
+ */
+
+.Link {
+  @apply text-purple-700 border-b-4 border-purple-300;
+
+  &:hover {
+    @apply border-purple-700;
+  }
+}
+
+.Link--skinny {
+  @apply border-b-2;
+}
