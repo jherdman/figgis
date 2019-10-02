@@ -4,7 +4,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 const fetch = require('node-fetch');
 const { addDays } = require('date-fns');
 
-const METRIC_ID = 'e05747a6-a8a0-46ae-8f71-42c40fc84e8b';
+const METRIC_ID = process.env.METRIC_ID;
 const URL = `https://localhost:4000/api/metrics/${METRIC_ID}/data`;
 const BASE_DATE = new Date();
 
@@ -28,9 +28,9 @@ async function doRequest(body) {
 }
 
 for (let i = 0; i < 10; i++) {
-  const yValue = addDays(BASE_DATE, i);
+  const xValue = addDays(BASE_DATE, i);
 
-  const xValue = Math.floor(Math.random() * 10000).toString();
+  const yValue = Math.floor(Math.random() * 10000).toString();
 
   const body = {
     data: {

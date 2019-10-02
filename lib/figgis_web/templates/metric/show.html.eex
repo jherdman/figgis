@@ -35,52 +35,17 @@
   %>
 </nav>
 
-<%= if Enum.any?(@data) do %>
+<!--
+<div class="Spinner js-spinner"></div>
+-->
+
+<div class="js-chart-section w-full">
   <canvas
     class="js-chart"
-    width="400"
-    height="400"
     aria-label="Line chart depicting the trend for this metric"
     role="img"
     data-chart-x-type="<%= @metric.x_axis_type %>"
     data-chart-y-type-"<%= @metric.y_axis_type %>"
   >
   </canvas>
-
-  <table class="w-full">
-    <thead>
-      <tr>
-        <th class="Th">
-          <%= @metric.x_axis_label %>
-        </th>
-        <th class="Th">
-          <%= @metric.y_axis_label %>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= for datum <- @data do %>
-        <tr
-          class="js-datum-row"
-          data-x-value="<%= datum.x_value %>"
-          data-y-value="<%= datum.y_value %>"
-          data-test-selector="datum-row"
-          data-test-id="<%= datum.id %>"
-        >
-          <td class="<%= datum_row_classes(@metric.x_axis_type) %>">
-            <%= format_value(@metric.x_axis_type, datum.x_value) %>
-          </td>
-          <td class="<%= datum_row_classes(@metric.y_axis_type) %>">
-            <%= format_value(@metric.y_axis_type, datum.y_value) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
-
-  <code class="block m-4">
-    $ yard add -D some-package-name-here
-  </code>
-<% end %>
+</div>

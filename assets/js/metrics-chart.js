@@ -1,48 +1,67 @@
 import Chart from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
-document.addEventListener('DOMContentLoaded', function () {
-  const ctx = document.querySelector('.js-chart');
+import socket from './socket';
 
-  if (!ctx) {
-    return;
-  }
+const metricId = document.location.pathname.split('/').pop();
 
-  const datumRows = document.querySelectorAll('.js-datum-row');
-  const data = [];
-
-  datumRows.forEach(function (row) {
-    data.push({
-      t: row.dataset.xValue,
-      y: row.dataset.yValue,
-    });
-  });
-
-  // eslint-disable-next-line no-new
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      datasets: [
-        {
-          data,
-          backgroundColor: '#e9d8fd',
-          borderColor: '#6b46c1',
-          label: 'Change over time',
-        },
-      ],
-    },
-    options: {
-      title: {
-        display: false,
-      },
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            unit: 'day',
-          },
-        }],
-      },
-    },
-  });
+window.addEventListener('unload', function () {
+  socket.disconnect();
 });
+
+const ctx = document.querySelector('.js-chart');
+
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: [
+      {
+        data: [],
+        backgroundColor: '#e9d8fd',
+        borderColor: '#6b46c1',
+        label: 'Change over time',
+      },
+    ],
+  },
+  options: {
+    title: {
+      display: false,
+    },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'day',
+        },
+      }],
+    },
+  },
+});
+
+const channel = socket.channel(`metric:${metricId}`, {});
+
+channel.join();
+
+channel.on('data', function ({ data }) {
+  console.log('data received:', data);
+  updateChart(chart, data);
+});
+
+channel.on('new_data', function (datum) {
+  console.log('new data receieved:', datum);
+  updateChart(chart, Array(datum));
+});
+
+function normalizeData({ xValue, yValue }) {
+  return { x: xValue, y: yValue };
+}
+
+function updateChart(chart, data) {
+  let normalizedData = data.map(normalizeData);
+
+  chart.data.datasets.forEach(function (dataset) {
+    dataset.data.push(...normalizedData);
+  });
+
+  chart.update();
+}
