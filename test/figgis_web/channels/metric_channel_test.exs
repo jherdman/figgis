@@ -22,7 +22,7 @@ defmodule FiggisWeb.MetricChannelTest do
     end
 
     test "get_data replies with all known data", %{socket: socket, data: data} do
-      ref = push socket, "get_data", %{}
+      ref = push(socket, "get_data", %{})
 
       assert_reply ref, :ok, %{}
 

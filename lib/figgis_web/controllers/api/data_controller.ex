@@ -20,7 +20,7 @@ defmodule FiggisWeb.Api.DataController do
   defp broadcast_new_datum(metric, datum) do
     payload = FiggisWeb.DataView.render("datum.json", %{datum: datum})
 
-    FiggisWeb.Endpoint.broadcast "metric:#{metric.id}", "new_data", payload
+    FiggisWeb.Endpoint.broadcast("metric:#{metric.id}", "new_data", payload)
   end
 
   def create(conn, %{"data" => %{"attributes" => attributes}}, metric) do

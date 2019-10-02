@@ -36,7 +36,7 @@ defmodule FiggisWeb.MetricChannel do
   end
 
   # Add authorization logic here as required.
-  #defp authorized?(_payload) do
+  # defp authorized?(_payload) do
   #  true
-  #end
+  # end
 end
