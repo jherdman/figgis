@@ -35,11 +35,9 @@
   %>
 </nav>
 
-<!--
 <div class="Spinner js-spinner"></div>
--->
 
-<div class="js-chart-section w-full">
+<div class="js-chart-section w-full hidden">
   <canvas
     class="js-chart"
     aria-label="Line chart depicting the trend for this metric"
@@ -49,3 +47,39 @@
   >
   </canvas>
 </div>
+
+<template class="js-datum-row-template">
+  <tr
+    class="js-datum-row"
+    data-test-selector="datum-row"
+    data-test-id=""
+  >
+    <td class="Td js-datum-row-x-value"></td>
+    <td class="Td js-datum-row-y-value"></td>
+  </tr>
+</template>
+
+<section class="js-data-table hidden">
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="Th">
+          <%= @metric.x_axis_label %>
+        </th>
+        <th class="Th">
+          <%= @metric.y_axis_label %>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="js-data-table-body">
+    </tbody>
+  </table>
+</section>
+
+<section class="js-no-data-section hidden">
+  <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
+
+  <code class="block m-4">
+    $ yard add -D some-package-name-here
+  </code>
+</section>
