@@ -1,5 +1,6 @@
 import socket from './socket';
 import MetricChart from './metric-chart';
+import MetricTable from './metric-table';
 
 window.addEventListener('unload', function () {
   socket.disconnect();
@@ -7,11 +8,12 @@ window.addEventListener('unload', function () {
 
 export default class MetricPage {
   static init () {
-    let page = new this.prototype.constructor();
+    const page = new this.prototype.constructor();
 
     if (page.chartTag) {
       page.setUpChart();
       page.setUpChannel();
+      page.setUpDataTable();
     }
 
     return page;
@@ -53,6 +55,8 @@ export default class MetricPage {
         this.showData();
 
         this.chart.update(data);
+
+        this.table.update(data);
       } else {
         this.showInstallInstructions();
       }
@@ -62,10 +66,18 @@ export default class MetricPage {
       this.showData();
 
       this.chart.update(Array(datum));
+
+      this.table.update(Array(datum));
     });
   }
 
   setUpChart () {
     this.chart = new MetricChart(this.metricId, this.chartTag);
+  }
+
+  setUpDataTable () {
+    this.table = new MetricTable();
+
+    this.table.setUp();
   }
 }

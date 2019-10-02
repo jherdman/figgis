@@ -42,22 +42,30 @@
     >
     </canvas>
 
-    <a class="Link Link--skinny inline-block mt-4 text-sm" href="#">Show data table</a>
+    <a
+      class="Link Link--skinny inline-block mt-4 text-sm js-data-table-toggle"
+      href="#"
+    >
+      Show data table
+    </a>
   </div>
 
   <template class="js-datum-row-template">
     <tr
       class="js-datum-row"
       data-test-selector="datum-row"
-      data-test-id=""
     >
       <td class="Td js-datum-row-x-value"></td>
       <td class="Td js-datum-row-y-value"></td>
     </tr>
   </template>
 
-  <section class="js-data-table hidden">
-    <table class="w-full">
+  <section class="js-data-table-section hidden my-8">
+    <table
+      class="w-full js-data-table"
+      data-table-x-type="<%= @metric.x_axis_type %>"
+      data-table-y-type="<%= @metric.y_axis_type %>"
+    >
       <thead>
         <tr>
           <th class="Th">
