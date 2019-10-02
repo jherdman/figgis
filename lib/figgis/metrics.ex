@@ -36,9 +36,7 @@ defmodule Figgis.Metrics do
       ** (Ecto.NoResultsError)
 
   """
-  def get_metric!(id) do
-    Repo.get!(Metric, id)
-  end
+  def get_metric!(id), do: Repo.get!(Metric, id)
 
   @doc """
   Creates a metric.
