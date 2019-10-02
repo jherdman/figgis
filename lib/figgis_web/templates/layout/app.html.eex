@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body class="text-gray-800 leading-normal">
-    <header class="w-full text-purple-700 p-4">
+    <header class="w-full text-purple-700 pt-4 px-4">
       <section>
         <nav class="flex items-center" role="navigation">
-          <span class="inline-block mr-8">
+          <span class="inline-block mr-4">
             <!-- width="496pt" height="496pt" -->
             <svg class="stroke-current fill-current " height="40" width="40" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg">
               <path d="m48 448h16v16h-16zm0 0"/>

@@ -1,85 +1,107 @@
-<h1 class="Heading Heading--1">
-  <%= link @project.name,
-    to: Routes.project_path(@conn, :show, @project),
-    class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
-    data: [
-      "test-selector": "project-link"
-    ]
-  %>
-</h1>
+<article>
+  <h1 class="Heading Heading--1">
+    <%= link @project.name,
+      to: Routes.project_path(@conn, :show, @project),
+      class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
+      data: [
+        "test-selector": "project-link"
+      ]
+    %>
+  </h1>
 
-<h2 class="Heading Heading--2"><%= @metric.name %></h2>
+  <nav class="flex items-center mb-8">
+    <h2 class="mr-8 inline-block font-mono text-2xl">
+      <%= @metric.name %>
+    </h2>
 
-<%= if @metric.description do %>
-  <div class="border rounded mb-8 p-4 bg-gray-100">
-    <%= text_to_html(@metric.description) %>
+    <%= link "Edit",
+      to: Routes.project_metric_path(@conn, :edit, @project, @metric),
+      class: "Button mr-2",
+      data: [
+        "test-selector": "edit-metric-button",
+      ]
+    %>
+
+    <%= link "Delete",
+      to: Routes.project_metric_path(@conn, :delete, @project, @metric),
+      class: "Button",
+      method: :delete,
+      data: [
+        "test-selector": "delete-metric-button"
+      ]
+    %>
+  </nav>
+
+  <%= if @metric.description do %>
+    <aside class="border rounded mb-8 p-4 bg-gray-100">
+      <%= text_to_html(@metric.description) %>
+    </aside>
+  <% end %>
+
+  <nav class="flex items-center mb-8">
+    <button
+      class="Button Button--tab is-disabled mr-2"
+      type="button"
+      data-tab-target="js-chart-section"
+    >
+      Trends
+    </button>
+
+    <button
+      class="Button Button--tab is-disabled"
+      type="button"
+      data-tab-target="js-chart-section"
+    >
+      Data
+    </button>
+  </nav>
+
+  <div class="js-chart-section w-full hidden">
+    <canvas
+      class="js-chart"
+      aria-label="Line chart depicting the trend for this metric"
+      role="img"
+      data-chart-x-type="<%= @metric.x_axis_type %>"
+      data-chart-y-type-"<%= @metric.y_axis_type %>"
+    >
+    </canvas>
   </div>
-<% end %>
 
-<nav class="mb-8">
-  <%= link "Edit",
-    to: Routes.project_metric_path(@conn, :edit, @project, @metric),
-    class: "Button mr-2",
-    data: [
-      "test-selector": "edit-metric-button",
-    ]
-  %>
+  <template class="js-datum-row-template">
+    <tr
+      class="js-datum-row"
+      data-test-selector="datum-row"
+      data-test-id=""
+    >
+      <td class="Td js-datum-row-x-value"></td>
+      <td class="Td js-datum-row-y-value"></td>
+    </tr>
+  </template>
 
-  <%= link "Delete",
-    to: Routes.project_metric_path(@conn, :delete, @project, @metric),
-    class: "Button",
-    method: :delete,
-    data: [
-      "test-selector": "delete-metric-button"
-    ]
-  %>
-</nav>
+  <section class="js-data-table hidden">
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th class="Th">
+            <%= @metric.x_axis_label %>
+          </th>
+          <th class="Th">
+            <%= @metric.y_axis_label %>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="js-data-table-body">
+      </tbody>
+    </table>
+  </section>
 
-<div class="Spinner js-spinner"></div>
+  <section class="js-no-data-section hidden">
+    <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
 
-<div class="js-chart-section w-full hidden">
-  <canvas
-    class="js-chart"
-    aria-label="Line chart depicting the trend for this metric"
-    role="img"
-    data-chart-x-type="<%= @metric.x_axis_type %>"
-    data-chart-y-type-"<%= @metric.y_axis_type %>"
-  >
-  </canvas>
-</div>
+    <code class="block m-4">
+      $ yard add -D some-package-name-here
+    </code>
+  </section>
 
-<template class="js-datum-row-template">
-  <tr
-    class="js-datum-row"
-    data-test-selector="datum-row"
-    data-test-id=""
-  >
-    <td class="Td js-datum-row-x-value"></td>
-    <td class="Td js-datum-row-y-value"></td>
-  </tr>
-</template>
-
-<section class="js-data-table hidden">
-  <table class="w-full">
-    <thead>
-      <tr>
-        <th class="Th">
-          <%= @metric.x_axis_label %>
-        </th>
-        <th class="Th">
-          <%= @metric.y_axis_label %>
-        </th>
-      </tr>
-    </thead>
-    <tbody class="js-data-table-body">
-    </tbody>
-  </table>
-</section>
-
-<section class="js-no-data-section hidden">
-  <p>This metric does not yet have data. Below will be install instructions once I work that out.</p>
-
-  <code class="block m-4">
-    $ yard add -D some-package-name-here
-  </code>
-</section>
+  <div class="Spinner js-spinner"></div>
+</article>
