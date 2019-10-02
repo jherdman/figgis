@@ -21,12 +21,8 @@ defmodule FiggisWeb.MetricChannelTest do
       {:ok, socket: socket}
     end
 
-    test "get_data replies with all known data", %{socket: socket, data: data} do
-      ref = push(socket, "get_data", %{})
-
-      assert_reply ref, :ok, %{}
-
-      assert_broadcast("data", payload)
+    test "pushes all known data on join", %{data: data} do
+      assert_push("data", payload)
 
       assert %{data: received_data} = payload
 
