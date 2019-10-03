@@ -1,5 +1,1 @@
-- [x] Remove data preloading from Metrics.get_metric!
-- [ ] Data table rendering
-- [x] All data loading is over web sockets going forward
-- [x] Handle initial page hydration
-- [x] Don't shit the bed when no chart ctx
+- [ ] Fix websocket problem with tests, see https://github.com/phoenixframework/phoenix_ecto/issues/72
