@@ -46,7 +46,9 @@ export default class MetricPage {
 
   setUpChannel () {
     this.channel = socket.channel(`metric:${this.metricId}`, {});
-    this.channel.join();
+    this.channel.join()
+      .receive('ok', (msg) => console.log(msg))
+      .receive('error', (msg) => console.error(msg));
 
     this.channel.on('data', ({ data }) => {
       this.removeSpinner();

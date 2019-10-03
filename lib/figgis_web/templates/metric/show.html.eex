@@ -39,12 +39,14 @@
       role="img"
       data-chart-x-type="<%= @metric.x_axis_type %>"
       data-chart-y-type-"<%= @metric.y_axis_type %>"
+      data-test-selector="metrics-chart"
     >
     </canvas>
 
     <a
       class="Link Link--skinny inline-block mt-4 text-sm js-data-table-toggle"
       href="#"
+      data-test-selector="table-toggle"
     >
       Show data table
     </a>

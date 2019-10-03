@@ -166,7 +166,9 @@ describe('Project Management', function () {
         });
       }
 
-      await page.reload();
+      await expect(page).toMatchElement('[data-test-selector="metrics-chart"]');
+
+      await expect(page).toClick('[data-test-selector="table-toggle"]');
 
       const datumRowHandles = await page.$$('[data-test-selector="datum-row"]');
 
