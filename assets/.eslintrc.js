@@ -25,9 +25,9 @@ module.exports = {
         'objects': 'always-multiline',
         'imports': 'always-multiline',
         'exports': 'always-multiline',
-      }
+      },
     ],
-    'semi': ['error', 'always']
+    'semi': ['error', 'always'],
   },
   overrides: [
     // jest files

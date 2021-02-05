@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body class="text-gray-800 leading-normal">
-    <header class="w-full text-purple-700 p-4">
+    <header class="w-full text-purple-700 pt-4 px-4">
       <section>
         <nav class="flex items-center" role="navigation">
-          <span class="inline-block mr-8">
+          <span class="inline-block mr-4">
             <!-- width="496pt" height="496pt" -->
             <svg class="stroke-current fill-current " height="40" width="40" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg">
               <path d="m48 448h16v16h-16zm0 0"/>
@@ -30,13 +30,13 @@
 
           <%= link "Projects",
             to: Routes.project_path(@conn, :index),
-            class: "font-bold border-b-4 border-purple-300 hover:border-purple-700 inline-block"
+            class: "Link font-bold inline-block"
           %>
 
           <div class="flex-grow text-right">
             <%= link "New project",
               to: Routes.project_path(@conn, :new),
-              class: "Button",
+              class: "Button Button--action",
               data: ["test-selector": "new-project-button"]
             %>
           </div>

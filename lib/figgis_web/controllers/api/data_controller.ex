@@ -17,9 +17,17 @@ defmodule FiggisWeb.Api.DataController do
     apply(__MODULE__, action_name(conn), args)
   end
 
+  defp broadcast_new_datum(metric, datum) do
+    payload = FiggisWeb.DataView.render("datum.json", %{datum: datum})
+
+    FiggisWeb.Endpoint.broadcast("metric:#{metric.id}", "new_data", payload)
+  end
+
   def create(conn, %{"data" => %{"attributes" => attributes}}, metric) do
     case Metrics.create_datum(metric, attributes) do
       {:ok, datum} ->
+        broadcast_new_datum(metric, datum)
+
         conn
         |> put_status(:created)
         |> render("show.json", %{data: datum})

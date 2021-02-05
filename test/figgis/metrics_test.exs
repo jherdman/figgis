@@ -106,7 +106,7 @@ defmodule Figgis.MetricsTest do
 
       Metrics.delete_metric(metric)
 
-      data = Metrics.list_data()
+      data = Metrics.list_data(metric)
 
       assert Enum.count(data) === 0
     end
@@ -124,9 +124,11 @@ defmodule Figgis.MetricsTest do
     @update_attrs %{x_value: "some updated x_value", y_value: "some updated y_value"}
     @invalid_attrs %{x_value: nil, y_value: nil}
 
-    test "list_data/0 returns all data" do
-      datum = Factory.insert(:datum)
-      data = Metrics.list_data()
+    test "list_data/1 returns all data" do
+      metric = Factory.insert(:metric)
+      datum = Factory.insert(:datum, %{metric: metric})
+
+      data = Metrics.list_data(metric)
       data_ids = Enum.map(data, fn datum -> datum.id end)
 
       assert data_ids == [datum.id]

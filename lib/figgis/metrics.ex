@@ -36,14 +36,7 @@ defmodule Figgis.Metrics do
       ** (Ecto.NoResultsError)
 
   """
-  def get_metric!(id) do
-    queryable =
-      from m in Metric,
-        where: m.id == ^id,
-        preload: :data
-
-    Repo.one!(queryable)
-  end
+  def get_metric!(id), do: Repo.get!(Metric, id)
 
   @doc """
   Creates a metric.
@@ -119,12 +112,12 @@ defmodule Figgis.Metrics do
 
   ## Examples
 
-      iex> list_data()
+      iex> list_data(metric)
       [%Datum{}, ...]
 
   """
-  def list_data do
-    Repo.all(Datum)
+  def list_data(%Metric{} = metric) do
+    Repo.all(from(d in Ecto.assoc(metric, :data)))
   end
 
   @doc """

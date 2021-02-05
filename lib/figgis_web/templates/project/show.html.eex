@@ -1,7 +1,7 @@
 <h1 class="Heading Heading--1">
   <%= link @project.name,
     to: Routes.project_path(@conn, :show, @project),
-    class: "text-purple-700 border-b-4 border-purple-300 hover:border-purple-700 w-full",
+    class: "Link w-full",
     data: [
       "test-selector": "project-link"
     ]
@@ -11,7 +11,7 @@
 <nav class="mb-8">
   <%= link "Edit",
     to: Routes.project_path(@conn, :edit, @project),
-    class: "Button mr-2",
+    class: "Button Button--action mr-2",
     data: [
       "test-selector": "edit-project",
     ]
@@ -19,7 +19,7 @@
 
   <%= link "Delete",
     to: Routes.project_path(@conn, :delete, @project),
-    class: "Button mr-2",
+    class: "Button Button--action mr-2",
     method: :delete,
     data: [
       "test-selector": "delete-project"
@@ -28,7 +28,7 @@
 
   <%= link "New metric",
     to: Routes.project_metric_path(@conn, :new, @project),
-    class: "Button",
+    class: "Button Button--action",
     data: [
       "test-selector": "new-metric-button",
     ]

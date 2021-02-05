@@ -1,5 +1,6 @@
 defmodule FiggisWeb.Api.DataControllerTest do
   use FiggisWeb.ConnCase
+  use Phoenix.ChannelTest
 
   alias Figgis.Factory
 
@@ -16,6 +17,10 @@ defmodule FiggisWeb.Api.DataControllerTest do
       |> put_req_header("content-type", "application/vnd.api+json")
 
     {:ok, conn: conn}
+  end
+
+  setup %{metric: metric} do
+    @endpoint.subscribe("metric:#{metric.id}")
   end
 
   @x_value "2019-05-16 10:30:30"
@@ -44,6 +49,8 @@ defmodule FiggisWeb.Api.DataControllerTest do
                  }
                }
              } = json_response(conn, :created)
+
+      assert_broadcast "new_data", %{xValue: @x_value, yValue: @y_value}
     end
 
     test "responds with BAD REQUEST when missing a value", %{conn: conn, metric: metric} do
